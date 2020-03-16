@@ -10,6 +10,15 @@ import UIKit
 
 class ImagePostDetailTableViewController: UITableViewController {
     
+    var post: Post!
+    var postController: PostController!
+    var imageData: Data?
+    
+    @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var authorLabel: UILabel!
+    @IBOutlet weak var imageViewAspectRatioConstraint: NSLayoutConstraint!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         updateViews()
@@ -32,32 +41,55 @@ class ImagePostDetailTableViewController: UITableViewController {
     
     @IBAction func createComment(_ sender: Any) {
         
-        let alert = UIAlertController(title: "Add a comment", message: "Write your comment below:", preferredStyle: .alert)
+        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         
-        var commentTextField: UITextField?
-        
-        alert.addTextField { (textField) in
-            textField.placeholder = "Comment:"
-            commentTextField = textField
+        let audioAction = UIAlertAction(title: "Audio Comment", style: .default) { action in
+            DispatchQueue.main.async {
+                self.performSegue(withIdentifier: "RecordCommentSegue", sender: self)
+            }
         }
         
-        let addCommentAction = UIAlertAction(title: "Add Comment", style: .default) { (_) in
-            
-            guard let commentText = commentTextField?.text else { return }
-            
-            self.postController.addComment(with: commentText, to: &self.post!)
-            
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
-            }
+        let textAction = UIAlertAction(title: "Text Comment", style: .default) { action in
+            self.addTextCommentAlert()
         }
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         
-        alert.addAction(addCommentAction)
+        alert.addAction(audioAction)
+        alert.addAction(textAction)
         alert.addAction(cancelAction)
         
         present(alert, animated: true, completion: nil)
+    }
+    
+    func addTextCommentAlert() {
+        
+                let alert = UIAlertController(title: "Add a comment", message: "Write your comment below:", preferredStyle: .alert)
+        
+                var commentTextField: UITextField?
+        
+                alert.addTextField { (textField) in
+                    textField.placeholder = "Comment:"
+                    commentTextField = textField
+                }
+        
+                let addCommentAction = UIAlertAction(title: "Add Comment", style: .default) { (_) in
+        
+                    guard let commentText = commentTextField?.text else { return }
+        
+                    self.postController.addComment(with: commentText, to: &self.post!)
+        
+                    DispatchQueue.main.async {
+                        self.tableView.reloadData()
+                    }
+                }
+                
+                let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+                
+                alert.addAction(addCommentAction)
+                alert.addAction(cancelAction)
+                
+                present(alert, animated: true, completion: nil)
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -74,15 +106,4 @@ class ImagePostDetailTableViewController: UITableViewController {
         
         return cell
     }
-    
-    var post: Post!
-    var postController: PostController!
-    var imageData: Data?
-    
-    
-    
-    @IBOutlet weak var imageView: UIImageView!
-    @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var authorLabel: UILabel!
-    @IBOutlet weak var imageViewAspectRatioConstraint: NSLayoutConstraint!
 }

@@ -421,11 +421,70 @@
                         <outlet property="imageView" destination="Q0L-w5-qUw" id="0v7-ZB-mgi"/>
                         <outlet property="imageViewAspectRatioConstraint" destination="y1B-iX-x3e" id="wIt-kh-Tzd"/>
                         <outlet property="titleLabel" destination="jyy-BX-c2c" id="UEd-xO-ipC"/>
+                        <segue destination="X3X-gM-zWs" kind="presentation" identifier="RecordCommentSegue" id="Fhd-Zy-x1w"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CdL-Y3-4ej" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1968.8" y="472.71364317841085"/>
+        </scene>
+        <!--Record Comment View Controller-->
+        <scene sceneID="YiV-0H-8qP">
+            <objects>
+                <viewController id="X3X-gM-zWs" customClass="RecordCommentViewController" customModule="LambdaTimeline" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="dC7-aL-una">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WkO-dx-bEW">
+                                <rect key="frame" x="75" y="399" width="264" height="44"/>
+                                <color key="backgroundColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="26"/>
+                                <color key="tintColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal" title="Start Recording">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <state key="selected" title="Stop Recording"/>
+                                <connections>
+                                    <action selector="startStopRecording:" destination="X3X-gM-zWs" eventType="touchUpInside" id="dKH-mh-Hd4"/>
+                                </connections>
+                            </button>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9Y6-ve-MdZ">
+                                <rect key="frame" x="0.0" y="759" width="414" height="49"/>
+                                <items>
+                                    <barButtonItem systemItem="cancel" id="Kym-I5-YgI">
+                                        <connections>
+                                            <action selector="cancelComment:" destination="X3X-gM-zWs" id="PZz-cG-JJW"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="AKK-gh-RTA"/>
+                                    <barButtonItem systemItem="save" id="e5v-Tu-uwe">
+                                        <connections>
+                                            <action selector="saveComment:" destination="X3X-gM-zWs" id="bQm-Z1-zwe"/>
+                                        </connections>
+                                    </barButtonItem>
+                                </items>
+                            </toolbar>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="WkO-dx-bEW" firstAttribute="centerY" secondItem="dC7-aL-una" secondAttribute="centerY" id="LJ5-dC-i9P"/>
+                            <constraint firstItem="WkO-dx-bEW" firstAttribute="centerX" secondItem="dC7-aL-una" secondAttribute="centerX" id="edB-Nx-IZn"/>
+                            <constraint firstItem="9Y6-ve-MdZ" firstAttribute="trailing" secondItem="YVP-ih-Gkd" secondAttribute="trailing" id="gf0-Ln-1wY"/>
+                            <constraint firstItem="WkO-dx-bEW" firstAttribute="leading" secondItem="YVP-ih-Gkd" secondAttribute="leading" constant="75" id="ggW-Rn-5oP"/>
+                            <constraint firstItem="9Y6-ve-MdZ" firstAttribute="leading" secondItem="YVP-ih-Gkd" secondAttribute="leading" id="h8Q-x8-ebp"/>
+                            <constraint firstItem="9Y6-ve-MdZ" firstAttribute="bottom" secondItem="YVP-ih-Gkd" secondAttribute="bottom" id="oYZ-01-3v9"/>
+                            <constraint firstItem="YVP-ih-Gkd" firstAttribute="trailing" secondItem="WkO-dx-bEW" secondAttribute="trailing" constant="75" id="wFg-3f-mAq"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="YVP-ih-Gkd"/>
+                    </view>
+                    <connections>
+                        <outlet property="recordButton" destination="WkO-dx-bEW" id="sRR-R0-akG"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="xpa-QB-4U7" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2776" y="479"/>
         </scene>
     </scenes>
     <resources>
