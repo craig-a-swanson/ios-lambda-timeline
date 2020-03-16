@@ -30,8 +30,10 @@ class RecordCommentViewController: UIViewController {
         
         if recordButton.isSelected {
             recordButton.isSelected = false
+            stopRecording()
         } else {
             recordButton.isSelected = true
+            requestPermissionOrStartRecording()
         }
     }
     
