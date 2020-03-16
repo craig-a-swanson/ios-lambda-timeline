@@ -35,6 +35,7 @@ class PostController {
         }
     }
     
+    // TODO: this is specifically addTextComment; need to also make a addAudioComment function
     func addComment(with text: String, to post: inout Post) {
         
         guard let currentUser = Auth.auth().currentUser,
