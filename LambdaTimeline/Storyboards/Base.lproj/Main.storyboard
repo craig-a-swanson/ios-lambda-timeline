@@ -2,7 +2,6 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="xB5-Kl-GM2">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -157,13 +156,82 @@
                                             </textField>
                                         </subviews>
                                     </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="ye3-Ba-3w5">
+                                        <rect key="frame" x="89.5" y="425" width="235" height="35"/>
+                                        <subviews>
+                                            <button opaque="NO" alpha="0.75" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VFx-jD-Mqb">
+                                                <rect key="frame" x="0.0" y="0.0" width="35" height="35"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="35" id="CP7-4V-kJi"/>
+                                                    <constraint firstAttribute="height" constant="35" id="Gsh-2A-amf"/>
+                                                </constraints>
+                                                <state key="normal" title="Button" image="contrast"/>
+                                                <connections>
+                                                    <action selector="contrastFilter:" destination="1Aw-4e-BW2" eventType="touchUpInside" id="NoM-aI-tWT"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="i5P-h9-9jg">
+                                                <rect key="frame" x="50" y="0.0" width="35" height="35"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="35" id="ct9-ho-YJO"/>
+                                                </constraints>
+                                                <state key="normal" title="Button" image="hue"/>
+                                                <connections>
+                                                    <action selector="hueFilter:" destination="1Aw-4e-BW2" eventType="touchUpInside" id="uSc-Qp-PC7"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="he7-fk-k7g">
+                                                <rect key="frame" x="100" y="0.0" width="35" height="35"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="35" id="xoC-vW-oMI"/>
+                                                </constraints>
+                                                <state key="normal" title="Button" image="exposure"/>
+                                                <connections>
+                                                    <action selector="exposureFilter:" destination="1Aw-4e-BW2" eventType="touchUpInside" id="ASl-vI-9VS"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="flQ-01-MIT">
+                                                <rect key="frame" x="150" y="0.0" width="35" height="35"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="35" id="Ov7-rD-nYs"/>
+                                                </constraints>
+                                                <state key="normal" title="Button" image="scaleDown"/>
+                                                <connections>
+                                                    <action selector="scaleFilter:" destination="1Aw-4e-BW2" eventType="touchUpInside" id="j0h-7f-6Tf"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YwZ-pm-cRT">
+                                                <rect key="frame" x="200" y="0.0" width="35" height="35"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="35" id="SDV-sP-35A"/>
+                                                </constraints>
+                                                <state key="normal" title="Button" image="swirl"/>
+                                                <connections>
+                                                    <action selector="maskFilter:" destination="1Aw-4e-BW2" eventType="touchUpInside" id="dGW-WE-Qax"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                    <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="i29-0X-l2O">
+                                        <rect key="frame" x="117.5" y="480" width="179" height="31"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="175" id="rIG-Kz-2BV"/>
+                                        </constraints>
+                                        <connections>
+                                            <action selector="adjustmentSlider:" destination="1Aw-4e-BW2" eventType="valueChanged" id="ayw-AC-t5e"/>
+                                        </connections>
+                                    </slider>
                                 </subviews>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="PkI-rS-ua9" secondAttribute="trailing" id="1cC-FG-cAC"/>
                                     <constraint firstItem="PkI-rS-ua9" firstAttribute="top" secondItem="9qd-If-ddw" secondAttribute="top" id="3tV-sW-NF1"/>
+                                    <constraint firstItem="i29-0X-l2O" firstAttribute="centerX" secondItem="9qd-If-ddw" secondAttribute="centerX" id="N4q-hf-rjO"/>
+                                    <constraint firstItem="i29-0X-l2O" firstAttribute="top" secondItem="ye3-Ba-3w5" secondAttribute="bottom" constant="20" id="Xdq-1i-3LA"/>
                                     <constraint firstItem="PkI-rS-ua9" firstAttribute="leading" secondItem="9qd-If-ddw" secondAttribute="leading" id="bPK-xN-eaO"/>
                                     <constraint firstAttribute="bottom" secondItem="PkI-rS-ua9" secondAttribute="bottom" id="cfV-7c-ubK"/>
                                     <constraint firstItem="PkI-rS-ua9" firstAttribute="width" secondItem="9qd-If-ddw" secondAttribute="width" id="dWh-6N-mO7"/>
+                                    <constraint firstItem="ye3-Ba-3w5" firstAttribute="top" secondItem="PkI-rS-ua9" secondAttribute="bottom" constant="8" id="eLr-B4-wop"/>
+                                    <constraint firstItem="ye3-Ba-3w5" firstAttribute="centerX" secondItem="9qd-If-ddw" secondAttribute="centerX" id="eSY-zE-gYf"/>
                                     <constraint firstAttribute="height" priority="250" constant="603" id="qMm-7B-8rp"/>
                                 </constraints>
                             </scrollView>
@@ -187,8 +255,14 @@
                     </navigationItem>
                     <connections>
                         <outlet property="chooseImageButton" destination="VxD-cu-jHT" id="KVs-no-MbU"/>
+                        <outlet property="colorButton" destination="flQ-01-MIT" id="dgy-eL-LfW"/>
+                        <outlet property="contrastButton" destination="VFx-jD-Mqb" id="8jR-jD-JZX"/>
+                        <outlet property="exposureButton" destination="he7-fk-k7g" id="5oS-gx-gRe"/>
+                        <outlet property="filterSlider" destination="i29-0X-l2O" id="KYN-eL-Xvc"/>
+                        <outlet property="hueButton" destination="i5P-h9-9jg" id="gFA-mc-8O5"/>
                         <outlet property="imageHeightConstraint" destination="MHD-wr-Gq9" id="HyG-8g-Ck1"/>
                         <outlet property="imageView" destination="4eK-5F-H5h" id="e7m-c5-Xhz"/>
+                        <outlet property="maskButton" destination="YwZ-pm-cRT" id="pTN-mj-SR6"/>
                         <outlet property="postButton" destination="hsH-Uv-tug" id="ZBn-KE-cpU"/>
                         <outlet property="titleTextField" destination="Op6-OA-6Ou" id="JEe-cj-4mv"/>
                     </connections>
@@ -354,4 +428,11 @@
             <point key="canvasLocation" x="1968.8" y="472.71364317841085"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="contrast" width="512" height="512"/>
+        <image name="exposure" width="186" height="186"/>
+        <image name="hue" width="512" height="512"/>
+        <image name="scaleDown" width="512" height="512"/>
+        <image name="swirl" width="220" height="156"/>
+    </resources>
 </document>
