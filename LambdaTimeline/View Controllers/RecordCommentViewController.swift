@@ -17,6 +17,7 @@ class RecordCommentViewController: UIViewController {
     var post: Post?
     var recordingURL: URL?
     var audioRecorder: AVAudioRecorder?
+    var postController: PostController?
 
     @IBOutlet weak var recordButton: UIButton!
     
@@ -42,6 +43,23 @@ class RecordCommentViewController: UIViewController {
     }
     
     @IBAction func saveComment(_ sender: UIBarButtonItem) {
+        guard post != nil else { return }
+        guard let audioURL = recordingURL else {
+        presentInformationalAlertController(title: "One thing...", message: "Make sure that you record a comment before posting.")
+        return
+        }
+        
+        postController?.addAudioComment(with: audioURL, of: .audio, to: &self.post!) { (success) in
+            guard success else {
+                DispatchQueue.main.async {
+                    self.presentInformationalAlertController(title: "Error", message: "Unable to save comment")
+                }
+                return
+            }
+            DispatchQueue.main.async {
+                self.dismiss(animated: true, completion: nil)
+            }
+        }
     }
     
     func createAudioCommentURL() -> URL {
@@ -50,7 +68,7 @@ class RecordCommentViewController: UIViewController {
                 let name = ISO8601DateFormatter.string(from: Date(), timeZone: .current, formatOptions: .withInternetDateTime)
                 let file = documents.appendingPathComponent(name, isDirectory: false).appendingPathExtension("caf")
                 
-        //        print("recording URL: \(file)")
+                print("recording URL: \(file)")
                 
                 return file
     }

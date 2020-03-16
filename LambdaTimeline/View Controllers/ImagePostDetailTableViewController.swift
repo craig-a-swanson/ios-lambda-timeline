@@ -106,4 +106,14 @@ class ImagePostDetailTableViewController: UITableViewController {
         
         return cell
     }
+    
+    // MARK: - Navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "RecordCommentSegue" {
+            guard let recordVC = segue.destination as? RecordCommentViewController else { return }
+            
+            recordVC.postController = postController
+            recordVC.post = post
+        }
+    }
 }

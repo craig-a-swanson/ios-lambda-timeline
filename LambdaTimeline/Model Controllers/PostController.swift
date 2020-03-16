@@ -41,11 +41,73 @@ class PostController {
         guard let currentUser = Auth.auth().currentUser,
             let author = Author(user: currentUser) else { return }
         
-        let comment = Comment(text: text, author: author)
+//        let comment = Comment(text: text, author: author)
+        let comment = Comment(text: text, author: author, audioURL: nil)
         post.comments.append(comment)
         
         savePostToFirebase(post)
     }
+    
+    func addAudioComment(with dataURL: URL, of mediaType: MediaType, to post: inout Post, completion: @escaping (Bool) -> Void = { _ in }) {
+        guard let currentUser = Auth.auth().currentUser,
+            let author = Author(user: currentUser) else { return }
+        
+        var audioData: Data
+        do {
+            audioData = try Data(contentsOf: dataURL)
+        } catch {
+            print("Error retrieving audio data from directory: \(error)")
+            return
+        }
+        store2(mediaData: audioData, mediaType: mediaType) { (mediaURL) in
+            
+            guard let mediaURL = mediaURL else { completion(false); return }
+            
+            let comment = Comment(text: nil, author: author, audioURL: mediaURL)
+            
+            self.postsRef.childByAutoId().setValue(comment.dictionaryRepresentation) { (error, ref) in
+                if let error = error {
+                    NSLog("Error posting image post: \(error)")
+                    completion(false)
+                }
+                completion(true)
+            }
+        }
+    }
+    private func store2(mediaData: Data, mediaType: MediaType, completion: @escaping (URL?) -> Void) {
+        let mediaID = UUID().uuidString
+        let mediaRef = storageRef.child(mediaType.rawValue).child(mediaID)
+        
+        let uploadTask = mediaRef.putData(mediaData, metadata: nil) { (metadata, error) in
+            if let error = error {
+                NSLog("Error storing media data: \(error)")
+                completion(nil)
+                return
+            }
+            
+            if metadata == nil {
+                NSLog("No metadata returned from upload task.")
+                completion(nil)
+                return
+            }
+            
+            mediaRef.downloadURL(completion: { (url, error) in
+                if let error = error {
+                    NSLog("Error getting download url of media: \(error)")
+                }
+                
+                guard let url = url else {
+                    NSLog("Download url is nil. Unable to create a Media object")
+                    
+                    completion(nil)
+                    return
+                }
+                completion(url)
+            })
+        }
+        uploadTask.resume()
+    }
+    
 
     func observePosts(completion: @escaping (Error?) -> Void) {
         
