@@ -20,20 +20,22 @@ class Post {
     let mediaType: MediaType
     let author: Author
     let timestamp: Date
-    var comments: [Comment]
-    var id: String?
+    var comments: [Comment]?
+    var postID: String?
     var ratio: CGFloat?
     
     var title: String? {
+        guard let comments = comments else { return "" }
         return comments.first?.text
     }
     
-    init(title: String, mediaURL: URL, ratio: CGFloat? = nil, author: Author, timestamp: Date = Date()) {
+    init(title: String, mediaURL: URL, ratio: CGFloat? = nil, author: Author, timestamp: Date = Date(), comments: [Comment]? = []) {
         self.mediaURL = mediaURL
         self.ratio = ratio
         self.mediaType = .image
         self.author = author
-        self.comments = [Comment(text: title, author: author)]
+        self.comments = comments
+//        self.comments = [Comment(text: title, author: author)]
         self.timestamp = timestamp
     }
     
@@ -54,7 +56,7 @@ class Post {
         self.author = author
         self.timestamp = Date(timeIntervalSince1970: timestampTimeInterval)
         self.comments = captionDictionaries.compactMap({ Comment(dictionary: $0) })
-        self.id = id
+        self.postID = id
     }
     
     // Convert to a dictionary using the key constants defined below as the dictionary keys

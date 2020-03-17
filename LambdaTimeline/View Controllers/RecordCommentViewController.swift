@@ -18,20 +18,24 @@ protocol RecordCommentVCDelegate {
 
 class RecordCommentViewController: UIViewController {
     
+    // MARK: - Properties
     var post: Post?
     var recordingURL: URL?
     var audioRecorder: AVAudioRecorder?
     var postController: PostController?
     var delegate: RecordCommentVCDelegate?
 
+    // MARK: - Outlets
     @IBOutlet weak var recordButton: UIButton!
     
+    // MARK: - View Controller Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
 
         recordButton.layer.cornerRadius = 20
     }
     
+    // MARK: - Actions
     @IBAction func startStopRecording(_ sender: UIButton) {
         
         if recordButton.isSelected {
@@ -68,6 +72,7 @@ class RecordCommentViewController: UIViewController {
         }
     }
     
+    // MARK: - Methods for Recording
     func createAudioCommentURL() -> URL {
                 let documents = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
                 
@@ -145,19 +150,9 @@ class RecordCommentViewController: UIViewController {
         try session.setCategory(.playAndRecord, options: [.defaultToSpeaker])
         try session.setActive(true, options: []) // can fail if on a phone call, for instance
     }
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
 
+// MARK: - AVRecorder Delegate
 extension RecordCommentViewController: AVAudioRecorderDelegate {
 //    func audioRecorderDidFinishRecording(_ recorder: AVAudioRecorder, successfully flag: Bool) {
 //        if let recordingURL = recordingURL {

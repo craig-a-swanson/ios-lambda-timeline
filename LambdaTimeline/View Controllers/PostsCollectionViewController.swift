@@ -107,14 +107,14 @@ class PostsCollectionViewController: UICollectionViewController, UICollectionVie
     
     override func collectionView(_ collectionView: UICollectionView, didEndDisplayingSupplementaryView view: UICollectionReusableView, forElementOfKind elementKind: String, at indexPath: IndexPath) {
         
-        guard let postID = postController.posts[indexPath.row].id else { return }
+        guard let postID = postController.posts[indexPath.row].postID else { return }
         operations[postID]?.cancel()
     }
     
     func loadImage(for imagePostCell: ImagePostCollectionViewCell, forItemAt indexPath: IndexPath) {
         let post = postController.posts[indexPath.row]
         
-        guard let postID = post.id else { return }
+        guard let postID = post.postID else { return }
         
         if let mediaData = cache.value(for: postID),
             let image = UIImage(data: mediaData) {
@@ -171,7 +171,7 @@ class PostsCollectionViewController: UICollectionViewController, UICollectionVie
             let destinationVC = segue.destination as? ImagePostDetailTableViewController
             
             guard let indexPath = collectionView.indexPathsForSelectedItems?.first,
-                let postID = postController.posts[indexPath.row].id else { return }
+                let postID = postController.posts[indexPath.row].postID else { return }
             
             destinationVC?.postController = postController
             destinationVC?.post = postController.posts[indexPath.row]

@@ -130,11 +130,12 @@ class PostController {
     
     func savePostToFirebase(_ post: Post, completion: (Error?) -> Void = { _ in }) {
         
-        guard let postID = post.id else { return }
+        guard let postID = post.postID else { return }
         
         let ref = postsRef.child(postID)
         
         ref.setValue(post.dictionaryRepresentation)
+        print(post.dictionaryRepresentation)
     }
 
     private func store(mediaData: Data, mediaType: MediaType, completion: @escaping (URL?) -> Void) {
