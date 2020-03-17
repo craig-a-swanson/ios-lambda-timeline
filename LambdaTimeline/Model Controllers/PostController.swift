@@ -48,7 +48,7 @@ class PostController {
         savePostToFirebase(post)
     }
     
-    func addAudioComment(with dataURL: URL, of mediaType: MediaType, to post: inout Post, completion: @escaping (Bool) -> Void = { _ in }) {
+    func addAudioComment(with dataURL: URL, of mediaType: MediaType, to post: Post, completion: @escaping (Bool) -> Void = { _ in }) {
         guard let currentUser = Auth.auth().currentUser,
             let author = Author(user: currentUser) else { return }
         
@@ -64,14 +64,20 @@ class PostController {
             guard let mediaURL = mediaURL else { completion(false); return }
             
             let comment = Comment(text: nil, author: author, audioURL: mediaURL)
+            post.comments.append(comment)
             
-            self.postsRef.childByAutoId().setValue(comment.dictionaryRepresentation) { (error, ref) in
-                if let error = error {
-                    NSLog("Error posting image post: \(error)")
-                    completion(false)
-                }
-                completion(true)
-            }
+            self.savePostToFirebase(post)
+            completion(true)
+            
+//            let commentsRef = self.postsRef.child(post.id!).child("comments")
+//
+//            commentsRef.childByAutoId().setValue(comment.dictionaryRepresentation) { (error, ref) in
+//                if let error = error {
+//                    NSLog("Error posting image post: \(error)")
+//                    completion(false)
+//                }
+//                completion(true)
+//            }
         }
     }
     private func store2(mediaData: Data, mediaType: MediaType, completion: @escaping (URL?) -> Void) {

@@ -49,7 +49,7 @@ class RecordCommentViewController: UIViewController {
         return
         }
         
-        postController?.addAudioComment(with: audioURL, of: .audio, to: &self.post!) { (success) in
+        postController?.addAudioComment(with: audioURL, of: .audio, to: self.post!) { (success) in
             guard success else {
                 DispatchQueue.main.async {
                     self.presentInformationalAlertController(title: "Error", message: "Unable to save comment")
