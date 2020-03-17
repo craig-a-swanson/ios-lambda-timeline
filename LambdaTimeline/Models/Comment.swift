@@ -21,7 +21,7 @@ class Comment: FirebaseConvertible, Equatable {
     let timestamp: Date
     let audioURL: URL?
     
-    init(text: String?, author: Author, timestamp: Date = Date(), audioURL: URL?) {
+    init(text: String?, author: Author, timestamp: Date = Date(), audioURL: URL? = nil) {
         self.text = text
         self.author = author
         self.timestamp = timestamp
