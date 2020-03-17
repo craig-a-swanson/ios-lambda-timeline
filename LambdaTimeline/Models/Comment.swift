@@ -28,6 +28,7 @@ class Comment: FirebaseConvertible, Equatable {
         self.audioURL = audioURL
     }
     
+    // Convert from a dictionary need by Firebase back to our Comment object
     init?(dictionary: [String : Any]) {
         guard let authorDictionary = dictionary[Comment.author] as? [String: Any],
             let author = Author(dictionary: authorDictionary),
@@ -39,6 +40,7 @@ class Comment: FirebaseConvertible, Equatable {
         self.audioURL = dictionary[Comment.audioURLKey] as? URL
     }
     
+    // Convert to a dictionary for Firebase
     var dictionaryRepresentation: [String: Any] {
         return [Comment.textKey: text,
                 Comment.author: author.dictionaryRepresentation,

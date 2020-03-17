@@ -13,6 +13,9 @@ class ImagePostDetailTableViewController: UITableViewController {
     var post: Post!
     var postController: PostController!
     var imageData: Data?
+    private let cache = Cache<String, Data>()
+    private var operations = [String: Operation]()
+    private let mediaFetchQueue = OperationQueue()
     
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
@@ -36,8 +39,6 @@ class ImagePostDetailTableViewController: UITableViewController {
         titleLabel.text = post.title
         authorLabel.text = post.author.displayName
     }
-    
-    // MARK: - Table view data source
     
     @IBAction func createComment(_ sender: Any) {
         
@@ -92,19 +93,28 @@ class ImagePostDetailTableViewController: UITableViewController {
                 present(alert, animated: true, completion: nil)
     }
     
+    // MARK: - Table view data source
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return (post?.comments.count ?? 0) - 1
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "CommentCell", for: indexPath)
-        
         let comment = post?.comments[indexPath.row + 1]
         
-        cell.textLabel?.text = comment?.text
-        cell.detailTextLabel?.text = comment?.author.displayName
-        
-        return cell
+        if let audioURL = comment?.audioURL {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "AudioCommentCell", for: indexPath) as? ImagePostDetailTableViewCell else { return UITableViewCell() }
+            cell.audioURL = audioURL
+            cell.authorLabel.text = comment?.author.displayName
+            loadAudio(for: cell, forItemAt: indexPath)
+            return cell
+        } else {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "TextCommentCell", for: indexPath)
+            
+            cell.textLabel?.text = comment?.text
+            cell.detailTextLabel?.text = comment?.author.displayName
+            
+            return cell
+        }
     }
     
     // MARK: - Navigation
@@ -114,6 +124,64 @@ class ImagePostDetailTableViewController: UITableViewController {
             
             recordVC.postController = postController
             recordVC.post = post
+            recordVC.delegate = self
         }
     }
+    
+    private func loadAudio(for audioCell: ImagePostDetailTableViewCell, forItemAt indexPath: IndexPath) {
+        
+        let comment = post.comments[indexPath.row + 1]
+        guard let audioURL = comment.audioURL else {
+                print("Audio URL does not exist for comment")
+            return
+        }
+        if let audioData = cache.value(for: comment.author.uid+"\(comment.timestamp)") {
+            audioCell.loadAudio(data: audioData)
+            self.tableView.reloadRows(at: [indexPath], with: .automatic)
+            return
+        }
+        
+        let fetchOp = FetchCommentOperation(audioURL: audioURL, postController: postController)
+        
+        let cacheOp = BlockOperation {
+            if let data = fetchOp.mediaData {
+                self.cache.cache(value: data, for: comment.author.uid+"\(comment.timestamp)")
+                DispatchQueue.main.async {
+                    self.tableView.reloadRows(at: [indexPath], with: .automatic)
+                }
+            }
+        }
+        
+        let completionOp = BlockOperation {
+            defer { self.operations.removeValue(forKey: comment.author.uid+"\(comment.timestamp)")}
+            
+            if let currentIndexPath = self.tableView.indexPath(for: audioCell),
+                currentIndexPath != indexPath {
+                return
+            }
+            
+            if let data = fetchOp.mediaData {
+                audioCell.loadAudio(data: data)
+                self.tableView.reloadRows(at: [indexPath], with: .automatic)
+            }
+        }
+        
+        cacheOp.addDependency(fetchOp)
+        completionOp.addDependency(fetchOp)
+        
+        mediaFetchQueue.addOperation(fetchOp)
+        mediaFetchQueue.addOperation(cacheOp)
+        OperationQueue.main.addOperation(completionOp)
+        
+        operations[comment.author.uid+"\(comment.timestamp)"] = fetchOp
+    }
+}
+
+extension ImagePostDetailTableViewController: RecordCommentVCDelegate {
+    func updatePost(post: Post) {
+        self.post = post
+        self.tableView.reloadData()
+    }
+    
+    
 }

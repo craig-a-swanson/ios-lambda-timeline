@@ -37,6 +37,7 @@ class Post {
         self.timestamp = timestamp
     }
     
+    // Convert from a dictionary needed by Firebase back to our Post object
     init?(dictionary: [String : Any], id: String) {
         guard let mediaURLString = dictionary[Post.mediaKey] as? String,
             let mediaURL = URL(string: mediaURLString),
@@ -56,6 +57,7 @@ class Post {
         self.id = id
     }
     
+    // Convert to a dictionary using the key constants defined below as the dictionary keys
     var dictionaryRepresentation: [String : Any] {
         var dict: [String: Any] = [Post.mediaKey: mediaURL.absoluteString,
                 Post.mediaTypeKey: mediaType.rawValue,

@@ -12,12 +12,17 @@ import AVFoundation
 // convert the audio file to Data and call the store method in PostController in order to save it to the Firebase Storage area.  It should save it to "audio/" instead of "image/"
 // then figure out fetch.
 
+protocol RecordCommentVCDelegate {
+    func updatePost(post: Post)
+}
+
 class RecordCommentViewController: UIViewController {
     
     var post: Post?
     var recordingURL: URL?
     var audioRecorder: AVAudioRecorder?
     var postController: PostController?
+    var delegate: RecordCommentVCDelegate?
 
     @IBOutlet weak var recordButton: UIButton!
     
@@ -56,6 +61,7 @@ class RecordCommentViewController: UIViewController {
                 }
                 return
             }
+            self.delegate?.updatePost(post: self.post!)
             DispatchQueue.main.async {
                 self.dismiss(animated: true, completion: nil)
             }

@@ -379,7 +379,7 @@
                             </constraints>
                         </view>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="CommentCell" textLabel="a1p-af-m2r" detailTextLabel="KxJ-Oh-Ju8" style="IBUITableViewCellStyleSubtitle" id="gWx-Ba-4ra">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="TextCommentCell" textLabel="a1p-af-m2r" detailTextLabel="KxJ-Oh-Ju8" style="IBUITableViewCellStyleSubtitle" id="gWx-Ba-4ra">
                                 <rect key="frame" x="0.0" y="133" width="414" height="55.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="gWx-Ba-4ra" id="wtQ-2t-2R8">
@@ -403,7 +403,7 @@
                                     </subviews>
                                 </tableViewCellContentView>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="AudioCommentCell" id="LnD-IT-lRj">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="AudioCommentCell" id="LnD-IT-lRj" customClass="ImagePostDetailTableViewCell" customModule="LambdaTimeline" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="188.5" width="414" height="52"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="LnD-IT-lRj" id="wn0-Yf-DnI">
@@ -425,6 +425,10 @@
                                                     <state key="normal" title="Play Recorded Comment">
                                                         <color key="titleColor" systemColor="linkColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     </state>
+                                                    <state key="selected" title="Tap to Pause Playback"/>
+                                                    <connections>
+                                                        <action selector="togglePlayback:" destination="LnD-IT-lRj" eventType="touchUpInside" id="5b9-W7-Upi"/>
+                                                    </connections>
                                                 </button>
                                             </subviews>
                                         </stackView>
@@ -436,6 +440,10 @@
                                         <constraint firstItem="S91-mZ-gJI" firstAttribute="leading" secondItem="wn0-Yf-DnI" secondAttribute="leading" constant="20" id="xkV-9O-e2x"/>
                                     </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="authorLabel" destination="97V-So-hAB" id="EgW-3e-Oi4"/>
+                                    <outlet property="commentAudioControl" destination="CkH-SO-Zru" id="Kn3-4h-Qkc"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>

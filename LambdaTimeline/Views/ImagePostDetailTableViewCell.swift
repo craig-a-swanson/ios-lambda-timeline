@@ -11,12 +11,10 @@ import AVFoundation
 
 class ImagePostDetailTableViewCell: UITableViewCell {
 
-    var comment: Comment? {
-        didSet {
-            updateViews()
-        }
+    var audioURL: URL?
+    var isPlaying: Bool {
+        audioPlayer?.isPlaying ?? false
     }
-    var isAudio: Bool = false
     var audioPlayer: AVAudioPlayer? {
         didSet {
             guard let audioPlayer = audioPlayer else { return }
@@ -37,9 +35,45 @@ class ImagePostDetailTableViewCell: UITableViewCell {
     }
     
     private func updateViews() {
-        guard let comment = comment else { return }
-        authorLabel.text = comment.author.displayName
-
+        commentAudioControl.isSelected = isPlaying
+        
+    }
+    
+    @IBAction func togglePlayback(_ sender: Any) {
+        if isPlaying {
+            pause()
+        } else {
+            play()
+        }
+    }
+    
+    func loadAudio(data: Data) {
+        do {
+            audioPlayer = try AVAudioPlayer(data: data)
+        } catch {
+            print("Error loading data into audio player: \(error)")
+        }
+    }
+    
+    func play() {
+        do {
+            try prepareAudioSession()
+            audioPlayer?.play()
+            updateViews()
+        } catch {
+            print("Cannot play audio: \(error)")
+        }
+    }
+    
+    func pause() {
+        audioPlayer?.pause()
+        updateViews()
+    }
+    
+    func prepareAudioSession() throws {
+        let session = AVAudioSession.sharedInstance()
+        try session.setCategory(.playAndRecord, options: [.defaultToSpeaker])
+        try session.setActive(true, options: [])
     }
 
 }
