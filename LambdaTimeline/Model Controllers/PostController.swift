@@ -35,13 +35,11 @@ class PostController {
         }
     }
     
-    // TODO: this is specifically addTextComment; need to also make a addAudioComment function
-    func addComment(with text: String, to post: inout Post) {
+    func addTextComment(with text: String, to post: inout Post) {
         
         guard let currentUser = Auth.auth().currentUser,
             let author = Author(user: currentUser) else { return }
         
-//        let comment = Comment(text: text, author: author)
         let comment = Comment(text: text, author: author, audioURL: nil)
         post.comments.append(comment)
         
@@ -59,7 +57,7 @@ class PostController {
             print("Error retrieving audio data from directory: \(error)")
             return
         }
-        store2(mediaData: audioData, mediaType: mediaType) { (mediaURL) in
+        putAudioDataToServer(mediaData: audioData, mediaType: mediaType) { (mediaURL) in
             
             guard let mediaURL = mediaURL else { completion(false); return }
             
@@ -68,19 +66,10 @@ class PostController {
             
             self.savePostToFirebase(post)
             completion(true)
-            
-//            let commentsRef = self.postsRef.child(post.id!).child("comments")
-//
-//            commentsRef.childByAutoId().setValue(comment.dictionaryRepresentation) { (error, ref) in
-//                if let error = error {
-//                    NSLog("Error posting image post: \(error)")
-//                    completion(false)
-//                }
-//                completion(true)
-//            }
         }
     }
-    private func store2(mediaData: Data, mediaType: MediaType, completion: @escaping (URL?) -> Void) {
+    
+    private func putAudioDataToServer(mediaData: Data, mediaType: MediaType, completion: @escaping (URL?) -> Void) {
         let mediaID = UUID().uuidString
         let mediaRef = storageRef.child(mediaType.rawValue).child(mediaID)
         
