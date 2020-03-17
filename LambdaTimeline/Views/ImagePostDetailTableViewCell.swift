@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AVFoundation
 
 class ImagePostDetailTableViewCell: UITableViewCell {
 
@@ -16,9 +17,15 @@ class ImagePostDetailTableViewCell: UITableViewCell {
         }
     }
     var isAudio: Bool = false
+    var audioPlayer: AVAudioPlayer? {
+        didSet {
+            guard let audioPlayer = audioPlayer else { return }
+            audioPlayer.delegate = self
+            updateViews()
+        }
+    }
     
     @IBOutlet weak var authorLabel: UILabel!
-    @IBOutlet weak var commentText: UILabel!
     @IBOutlet weak var commentAudioControl: UIButton!
     
     override func awakeFromNib() {
@@ -32,15 +39,21 @@ class ImagePostDetailTableViewCell: UITableViewCell {
     private func updateViews() {
         guard let comment = comment else { return }
         authorLabel.text = comment.author.displayName
-        
-        guard let audio = comment.audioURL else {
-            commentText.text = comment.text
-            commentText.isHidden = false
-            commentAudioControl.isHidden = true
-            return
-        }
-        commentText.isHidden = true
-        commentAudioControl.isHidden = false
+
     }
 
+}
+
+extension ImagePostDetailTableViewCell: AVAudioPlayerDelegate {
+    
+    func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
+        updateViews()
+    }
+    
+    func audioPlayerDecodeErrorDidOccur(_ player: AVAudioPlayer, error: Error?) {
+        if let error = error {
+            print("Audio Player Error: \(error)")
+            // In a real app, actually present an error message to the user.
+        }
+    }
 }
