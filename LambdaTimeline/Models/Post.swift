@@ -15,6 +15,11 @@ enum MediaType: String {
     case audio
 }
 
+enum Content {
+    case audio(URL)
+    case text(String)
+}
+
 class Post {
     
     var mediaURL: URL
@@ -96,46 +101,30 @@ class Post {
         let text: String?
         let author: Author
         let timestamp: Date
-        let audioURL: URL?
+        let audioURL: String?
         
-        init(commentID: String = UUID().uuidString, text: String?, author: Author, timestamp: Date = Date(), audioURL: URL?) {
+        init(commentID: String = UUID().uuidString, text: String?, author: Author, timestamp: Date = Date(), audioURL: String?) {
             self.commentID = commentID
             self.text = text
             self.author = author
             self.timestamp = timestamp
             self.audioURL = audioURL
         }
-        
+
         // Convert from a dictionary needed by Firebase back to our Comment object
         init? (snapshot: DataSnapshot) {
             guard let value = snapshot.value as? [String:Any],
                 let authorDictionary = value[Post.Comment.author] as? [String:Any],
-            let author = Author(dictionary: authorDictionary),
+                let author = Author(dictionary: authorDictionary),
                 let timestampTimeInterval = value[Comment.timestampKey] as? TimeInterval,
                 let commentID = value[Comment.commentIDKey] as? String else { return nil }
-            
+     
             self.commentID = commentID
             self.text = value[Comment.textKey] as? String
             self.author = author
             self.timestamp = Date(timeIntervalSince1970: timestampTimeInterval)
-            guard let urlStirng = value["audioURL"] as? String else { return nil }
-            self.audioURL = URL(string: urlStirng)
+            self.audioURL = value["audioURL"] as? String
         }
-        
-    /*
-        init?(dictionary: [String : Any]) {
-            guard let authorDictionary = dictionary[Comment.author] as? [String: Any],
-                let author = Author(dictionary: authorDictionary),
-                let timestampTimeInterval = dictionary[Comment.timestampKey] as? TimeInterval,
-                let commentID = dictionary[Comment.commentIDKey] as? String else { return nil }
-            
-            self.commentID = commentID
-            self.text = dictionary[Comment.textKey] as? String
-            self.author = author
-            self.timestamp = Date(timeIntervalSince1970: timestampTimeInterval)
-            self.audioURL = dictionary[Comment.audioURLKey] as? URL
-        }
- */
         
         // Convert to a dictionary for Firebase
         var dictionaryRepresentation: [String: Any] {
@@ -143,7 +132,7 @@ class Post {
                     Comment.textKey: text,
                     Comment.author: author.dictionaryRepresentation,
                     Comment.timestampKey: timestamp.timeIntervalSince1970,
-                    Comment.audioURLKey: audioURL?.absoluteString]
+                    Comment.audioURLKey: audioURL]
         }
         
         static func ==(lhs: Comment, rhs: Comment) -> Bool {

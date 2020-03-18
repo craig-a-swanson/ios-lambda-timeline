@@ -11,7 +11,7 @@ import AVFoundation
 
 class ImagePostDetailTableViewCell: UITableViewCell {
 
-    var audioURL: URL?
+    var audioURL: String?
     var isPlaying: Bool {
         audioPlayer?.isPlaying ?? false
     }

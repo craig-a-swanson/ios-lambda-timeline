@@ -53,7 +53,7 @@ class RecordCommentViewController: UIViewController {
     
     @IBAction func saveComment(_ sender: UIBarButtonItem) {
         guard post != nil else { return }
-        guard let audioURL = recordingURL else {
+        guard let audioURL = recordingURL?.absoluteString else {
         presentInformationalAlertController(title: "One thing...", message: "Make sure that you record a comment before posting.")
         return
         }

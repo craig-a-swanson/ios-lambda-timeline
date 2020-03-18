@@ -157,7 +157,7 @@ class ImagePostDetailTableViewController: UITableViewController {
             return
         }
         
-        let fetchOp = FetchCommentOperation(audioURL: audioURL, postController: postController)
+        let fetchOp = FetchCommentOperation(audioURL: URL(string: audioURL)!, postController: postController)
         
         let cacheOp = BlockOperation {
             if let data = fetchOp.mediaData {

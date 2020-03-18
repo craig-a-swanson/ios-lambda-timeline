@@ -58,14 +58,14 @@ class PostController {
 //        savePostToFirebase(post)
     }
     
-    func addAudioComment(with dataURL: URL, of mediaType: MediaType, to post: Post, completion: @escaping (Bool) -> Void = { _ in }) {
+    func addAudioComment(with dataURL: String, of mediaType: MediaType, to post: Post, completion: @escaping (Bool) -> Void = { _ in }) {
         guard let currentUser = Auth.auth().currentUser,
             let postID = post.postID,
             let author = Author(user: currentUser) else { return }
         
         var audioData: Data
         do {
-            audioData = try Data(contentsOf: dataURL)
+            audioData = try Data(contentsOf: URL(string: dataURL)!)
         } catch {
             print("Error retrieving audio data from directory: \(error)")
             return
@@ -74,7 +74,7 @@ class PostController {
             
             guard let mediaURL = mediaURL else { completion(false); return }
             
-            let comment = Post.Comment(text: nil, author: author, audioURL: mediaURL)
+            let comment = Post.Comment(text: nil, author: author, audioURL: mediaURL.absoluteString)
             let commentPostReference = self.commentsRef.child(postID)
             let commentReference = commentPostReference.child(comment.commentID)
             commentReference.setValue(comment.dictionaryRepresentation)
