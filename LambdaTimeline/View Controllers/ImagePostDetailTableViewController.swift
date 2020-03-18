@@ -10,7 +10,16 @@ import UIKit
 
 class ImagePostDetailTableViewController: UITableViewController {
     
-    var post: Post!
+    var post: Post? {
+        didSet {
+            guard let post = post else { return }
+            postController.fetchComments(with: post, completion: {
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
+            })
+        }
+    }
     var postController: PostController!
     var imageData: Data?
     private let cache = Cache<String, Data>()
@@ -30,9 +39,14 @@ class ImagePostDetailTableViewController: UITableViewController {
     func updateViews() {
         
         guard let imageData = imageData,
-            let image = UIImage(data: imageData) else { return }
-        
-        title = post?.title
+            let image = UIImage(data: imageData),
+        let post = post else { return }
+        postController.fetchComments(with: post) {
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+        }
+        title = post.title
         
         imageView.image = image
         
@@ -78,10 +92,10 @@ class ImagePostDetailTableViewController: UITableViewController {
         
                     guard let commentText = commentTextField?.text else { return }
         
-                    self.postController.addTextComment(with: commentText, to: &self.post!)
-        
-                    DispatchQueue.main.async {
-                        self.tableView.reloadData()
+                    self.postController.addTextComment(with: commentText, with: nil, to: self.post!) {
+                        DispatchQueue.main.async {
+                            self.tableView.reloadData()
+                        }
                     }
                 }
                 
@@ -95,23 +109,25 @@ class ImagePostDetailTableViewController: UITableViewController {
     
     // MARK: - Table view data source
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return (post?.comments.count ?? 0) - 1
+        return (post!.comments?.count ?? 0)
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let comment = post?.comments[indexPath.row + 1]
+        guard let post = post else { fatalError() }
+        guard let comments = post.comments else { return UITableViewCell() }
+        let comment = comments[indexPath.row]
         
-        if let audioURL = comment?.audioURL {
+        if let audioURL = comment.audioURL {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "AudioCommentCell", for: indexPath) as? ImagePostDetailTableViewCell else { return UITableViewCell() }
             cell.audioURL = audioURL
-            cell.authorLabel.text = comment?.author.displayName
+            cell.authorLabel.text = comment.author.displayName
             loadAudio(for: cell, forItemAt: indexPath)
             return cell
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "TextCommentCell", for: indexPath)
             
-            cell.textLabel?.text = comment?.text
-            cell.detailTextLabel?.text = comment?.author.displayName
+            cell.textLabel?.text = comment.text
+            cell.detailTextLabel?.text = comment.author.displayName
             
             return cell
         }
@@ -130,7 +146,7 @@ class ImagePostDetailTableViewController: UITableViewController {
     
     private func loadAudio(for audioCell: ImagePostDetailTableViewCell, forItemAt indexPath: IndexPath) {
         
-        let comment = post.comments[indexPath.row + 1]
+        let comment = post!.comments![indexPath.row]
         guard let audioURL = comment.audioURL else {
                 print("Audio URL does not exist for comment")
             return

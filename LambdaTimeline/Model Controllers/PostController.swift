@@ -13,6 +13,13 @@ import FirebaseStorage
 
 class PostController {
     
+    var posts: [Post] = []
+    var comments: [Post.Comment] = []
+    let currentUser = Auth.auth().currentUser
+    let postsRef = Database.database().reference(withPath: "posts")
+    let commentsRef = Database.database().reference(withPath: "comments")
+    let storageRef = Storage.storage().reference()
+    
     func createPost(with title: String, ofType mediaType: MediaType, mediaData: Data, ratio: CGFloat? = nil, completion: @escaping (Bool) -> Void = { _ in }) {
         
         guard let currentUser = Auth.auth().currentUser,
@@ -35,19 +42,25 @@ class PostController {
         }
     }
     
-    func addTextComment(with text: String, to post: inout Post) {
+    func addTextComment(with text: String, with audioURL: URL?, to post: Post, completion: @escaping () -> Void) {
         
         guard let currentUser = Auth.auth().currentUser,
+            let postID = post.postID,
             let author = Author(user: currentUser) else { return }
         
-        let comment = Comment(text: text, author: author, audioURL: nil)
-        post.comments.append(comment)
+        let comment = Post.Comment(text: text, author: author, audioURL: nil)
+        let commentPostReference = self.commentsRef.child(postID)
+        let commentReference = commentPostReference.child(comment.commentID)
+        commentReference.setValue(comment.dictionaryRepresentation)
+        completion()
+//        post.comments.append(comment)
         
-        savePostToFirebase(post)
+//        savePostToFirebase(post)
     }
     
     func addAudioComment(with dataURL: URL, of mediaType: MediaType, to post: Post, completion: @escaping (Bool) -> Void = { _ in }) {
         guard let currentUser = Auth.auth().currentUser,
+            let postID = post.postID,
             let author = Author(user: currentUser) else { return }
         
         var audioData: Data
@@ -61,10 +74,17 @@ class PostController {
             
             guard let mediaURL = mediaURL else { completion(false); return }
             
-            let comment = Comment(text: nil, author: author, audioURL: mediaURL)
-            post.comments.append(comment)
+            let comment = Post.Comment(text: nil, author: author, audioURL: mediaURL)
+            let commentPostReference = self.commentsRef.child(postID)
+            let commentReference = commentPostReference.child(comment.commentID)
+            commentReference.setValue(comment.dictionaryRepresentation)
+//            self.fetchComments(with: post) {
+//                completion(true)
+//            }
             
-            self.savePostToFirebase(post)
+//            let comment = Comment(text: nil, author: author, audioURL: mediaURL)
+//            post.comments.append(comment)
+//            self.savePostToFirebase(post)
             completion(true)
         }
     }
@@ -103,6 +123,23 @@ class PostController {
         uploadTask.resume()
     }
     
+    func fetchComments(with post: Post, completion: @escaping () -> Void) {
+        
+        let commentPostReference = self.commentsRef.child(post.postID!)
+        commentPostReference.observe(.value) { (snapshot) in
+            var newComments: [Post.Comment] = []
+            for child in snapshot.children {
+                if let childSnapshot = child as? DataSnapshot,
+                    let comment = Post.Comment(snapshot: childSnapshot) {
+                    newComments.append(comment)
+                }
+            }
+            DispatchQueue.main.async {
+                post.comments = newComments
+            }
+            completion()
+        }
+    }
 
     func observePosts(completion: @escaping (Error?) -> Void) {
         
@@ -175,12 +212,6 @@ class PostController {
         
         uploadTask.resume()
     }
-    
-    var posts: [Post] = []
-    let currentUser = Auth.auth().currentUser
-    let postsRef = Database.database().reference().child("posts")
-    
-    let storageRef = Storage.storage().reference()
-    
+
     
 }
