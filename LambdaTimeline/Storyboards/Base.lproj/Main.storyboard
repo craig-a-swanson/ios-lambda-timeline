@@ -125,8 +125,8 @@
                                                 <constraint firstAttribute="height" constant="84" id="bbJ-X3-Vfu"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                            <state key="normal" image="play.circle" catalog="system"/>
-                                            <state key="selected" image="play.circle.fill" catalog="system"/>
+                                            <state key="normal" image="playnormal"/>
+                                            <state key="selected" image="playselected"/>
                                         </button>
                                     </subviews>
                                     <constraints>
@@ -174,13 +174,13 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2g5-8A-uJO">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m30-eL-UMd">
+                                    <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m30-eL-UMd">
                                         <rect key="frame" x="167" y="736" width="80" height="80"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="80" id="5G8-zH-RRB"/>
                                             <constraint firstAttribute="height" constant="80" id="D5c-nO-b1g"/>
                                         </constraints>
-                                        <state key="normal" image="video.circle" catalog="system"/>
+                                        <state key="normal" image="record"/>
                                         <state key="selected" image="video.circle.fill" catalog="system"/>
                                         <connections>
                                             <action selector="startStopRecording:" destination="QuD-QZ-D4j" eventType="touchUpInside" id="1rZ-OL-MTx"/>
@@ -638,11 +638,11 @@
         <image name="contrast" width="512" height="512"/>
         <image name="exposure" width="186" height="186"/>
         <image name="hue" width="512" height="512"/>
-        <image name="play.circle" catalog="system" width="64" height="60"/>
-        <image name="play.circle.fill" catalog="system" width="64" height="60"/>
+        <image name="playnormal" width="256" height="256"/>
+        <image name="playselected" width="256" height="256"/>
+        <image name="record" width="256" height="256"/>
         <image name="scaleDown" width="512" height="512"/>
         <image name="swirl" width="220" height="156"/>
-        <image name="video.circle" catalog="system" width="64" height="60"/>
         <image name="video.circle.fill" catalog="system" width="64" height="60"/>
     </resources>
 </document>
