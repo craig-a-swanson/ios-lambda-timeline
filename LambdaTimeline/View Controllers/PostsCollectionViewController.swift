@@ -9,11 +9,15 @@
 import UIKit
 import FirebaseAuth
 import FirebaseUI
+import AVFoundation
 
 class PostsCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
+    // MARK: - View Controller Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        requestCameraPermission()
         
         postController.observePosts { (_) in
             DispatchQueue.main.async {
@@ -51,6 +55,29 @@ class PostsCollectionViewController: UICollectionViewController, UICollectionVie
         alert.addAction(cancelAction)
         
         self.present(alert, animated: true, completion: nil)
+    }
+    
+    private func requestCameraPermission() {
+        switch AVCaptureDevice.authorizationStatus(for: .video) {
+        case .notDetermined:  // User's first use of the app
+            requestVideoPermission() // request permission
+        case .restricted:  // Parental controls, for instance, are preventing recording
+            preconditionFailure("Video is disabled; please review device restrictions")
+        case .denied:  // The user denied permission to use video
+            preconditionFailure("You are not able to use the app without giving permission via Setting > Privacy > Video")
+        case .authorized: break  // The user previously granted permission
+            
+        @unknown default: // A future new feature from apple that isn't handled now
+            preconditionFailure("A new status code was added that we need to handle")
+        }
+    }
+    
+    private func requestVideoPermission() {
+        AVCaptureDevice.requestAccess(for: .video) { (isGranted) in
+            guard isGranted else {
+                preconditionFailure("UI: Tell the user to enable permissions for Video/Camera")
+            }
+        }
     }
     
     // MARK: UICollectionViewDataSource
@@ -124,6 +151,7 @@ class PostsCollectionViewController: UICollectionViewController, UICollectionVie
         operations[postID]?.cancel()
     }
     
+    // MARK: - Load Image
     func loadImage(for imagePostCell: ImagePostCollectionViewCell, forItemAt indexPath: IndexPath) {
         let post = postController.posts[indexPath.row]
         
@@ -172,6 +200,7 @@ class PostsCollectionViewController: UICollectionViewController, UICollectionVie
         operations[postID] = fetchOp
     }
     
+    // MARK: - Load Video
     func loadVideo(for videoPostCell: VideoPostCollectionViewCell, forItemAt indexPath: IndexPath) {
         let post = postController.posts[indexPath.row]
         

@@ -30,7 +30,9 @@
 	<key>CFBundleVersion</key>
 	<string>1</string>
 	<key>NSMicrophoneUsageDescription</key>
-	<string>$(PRODUCT_NAME) uses the microphone to record audio.</string>
+	<string>$(PRODUCT_NAME) uses the microphone to support audio recordings.</string>
+	<key>NSCameraUsageDescription</key>
+	<string>$(PRODUCT_NAME) uses the camera to create video recordings.</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSPhotoLibraryUsageDescription</key>
