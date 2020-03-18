@@ -4,6 +4,7 @@
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -11,7 +12,7 @@
         <scene sceneID="JFE-md-uAO">
             <objects>
                 <collectionViewController id="hPa-Td-5A3" customClass="PostsCollectionViewController" customModule="LambdaTimeline" customModuleProvider="target" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" id="RVQ-9Q-e54">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" dataMode="prototypes" id="RVQ-9Q-e54">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -79,6 +80,50 @@
                                     <outlet property="labelBackgroundView" destination="5zZ-2z-oK0" id="XjC-Of-Yj5"/>
                                     <outlet property="titleLabel" destination="tHt-lC-hYm" id="uRt-J9-5cc"/>
                                 </connections>
+                            </collectionViewCell>
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" reuseIdentifier="VideoPostCell" id="H9R-jI-c9i">
+                                <rect key="frame" x="19.5" y="385" width="375" height="375"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="j2J-M0-odX">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="375"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rRG-KW-HFA">
+                                            <rect key="frame" x="0.0" y="337" width="47" height="38"/>
+                                            <subviews>
+                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="fOt-YV-54G">
+                                                    <rect key="frame" x="8" y="4" width="31" height="30"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UgJ-Py-1aH">
+                                                            <rect key="frame" x="0.0" y="0.0" width="31" height="14.5"/>
+                                                            <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
+                                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ujs-Iy-ad9">
+                                                            <rect key="frame" x="0.0" y="16.5" width="31" height="13.5"/>
+                                                            <fontDescription key="fontDescription" style="UICTFontTextStyleCaption2"/>
+                                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                </stackView>
+                                            </subviews>
+                                            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="displayP3"/>
+                                            <constraints>
+                                                <constraint firstItem="fOt-YV-54G" firstAttribute="top" secondItem="rRG-KW-HFA" secondAttribute="top" constant="4" id="CHc-mu-x1L"/>
+                                                <constraint firstAttribute="bottom" secondItem="fOt-YV-54G" secondAttribute="bottom" constant="4" id="cug-md-gPZ"/>
+                                                <constraint firstItem="fOt-YV-54G" firstAttribute="leading" secondItem="rRG-KW-HFA" secondAttribute="leading" constant="8" id="leI-MV-3CA"/>
+                                                <constraint firstAttribute="height" relation="lessThanOrEqual" constant="128" id="nvD-0u-1fY"/>
+                                                <constraint firstAttribute="trailing" secondItem="fOt-YV-54G" secondAttribute="trailing" constant="8" id="yS0-aW-bVN"/>
+                                            </constraints>
+                                        </view>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="bottom" secondItem="rRG-KW-HFA" secondAttribute="bottom" id="2SN-uM-URe"/>
+                                        <constraint firstItem="rRG-KW-HFA" firstAttribute="leading" secondItem="j2J-M0-odX" secondAttribute="leading" id="HOG-NN-rDa"/>
+                                    </constraints>
+                                </collectionViewCellContentView>
                             </collectionViewCell>
                         </cells>
                         <connections>
