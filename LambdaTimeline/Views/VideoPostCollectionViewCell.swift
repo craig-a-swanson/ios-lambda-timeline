@@ -1,21 +1,22 @@
 //
-//  ImagePostCollectionViewCell.swift
+//  VideoPostCollectionViewCell.swift
 //  LambdaTimeline
 //
-//  Created by Spencer Curtis on 10/12/18.
-//  Copyright © 2018 Lambda School. All rights reserved.
+//  Created by Craig Swanson on 3/18/20.
+//  Copyright © 2020 Lambda School. All rights reserved.
 //
 
 import UIKit
+import AVFoundation
 
-class ImagePostCollectionViewCell: UICollectionViewCell {
-
-        var post: Post? {
-            didSet {
-                updateViews()
-            }
+class VideoPostCollectionViewCell: UICollectionViewCell {
+    var post: Post? {
+        didSet {
+            updateViews()
         }
-
+    }
+    var player: AVPlayer!
+    
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var authorLabel: UILabel!
@@ -35,15 +36,15 @@ class ImagePostCollectionViewCell: UICollectionViewCell {
     
     func updateViews() {
         guard let post = post else { return }
-    
+        
         titleLabel.text = post.title
         authorLabel.text = post.author.displayName
     }
-
+    
     func setupLabelBackgroundView() {
         labelBackgroundView.layer.cornerRadius = 8
-//        labelBackgroundView.layer.borderColor = UIColor.white.cgColor
-//        labelBackgroundView.layer.borderWidth = 0.5
+        //        labelBackgroundView.layer.borderColor = UIColor.white.cgColor
+        //        labelBackgroundView.layer.borderWidth = 0.5
         labelBackgroundView.clipsToBounds = true
     }
     

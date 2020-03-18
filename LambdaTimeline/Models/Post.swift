@@ -13,11 +13,7 @@ import FirebaseAuth
 enum MediaType: String {
     case image
     case audio
-}
-
-enum Content {
-    case audio(URL)
-    case text(String)
+    case video
 }
 
 class Post {
@@ -30,10 +26,11 @@ class Post {
     var postID: String?
     var ratio: CGFloat?
     
-    var title: String? {
-        guard let comments = comments else { return "" }
-        return comments.first?.text
-    }
+    var title: String?
+//    {
+//        guard let comments = comments else { return "" }
+//        return comments.first?.text
+//    }
     
     init(title: String, mediaURL: URL, ratio: CGFloat? = nil, author: Author, timestamp: Date = Date(), comments: [Comment]? = []) {
         self.mediaURL = mediaURL

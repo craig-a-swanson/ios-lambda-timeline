@@ -40,9 +40,14 @@ class PostsCollectionViewController: UICollectionViewController, UICollectionVie
             self.performSegue(withIdentifier: "AddImagePost", sender: nil)
         }
         
+        let videoPostAction = UIAlertAction(title: "Video", style: .default) { (_) in
+            self.performSegue(withIdentifier: "AddVideoPost", sender: nil)
+        }
+        
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         
         alert.addAction(imagePostAction)
+        alert.addAction(videoPostAction)
         alert.addAction(cancelAction)
         
         self.present(alert, animated: true, completion: nil)
@@ -67,7 +72,15 @@ class PostsCollectionViewController: UICollectionViewController, UICollectionVie
             loadImage(for: cell, forItemAt: indexPath)
             
             return cell
-            // TODO: the following TODO is temporary
+            
+        case .video:
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "VideoPostCell", for: indexPath) as? VideoPostCollectionViewCell else { return UICollectionViewCell() }
+            
+            cell.post = post
+            loadVideo(for: cell, forItemAt: indexPath)
+            
+            return cell
+            
         default:
             return UICollectionViewCell()
         }
@@ -80,16 +93,16 @@ class PostsCollectionViewController: UICollectionViewController, UICollectionVie
         let post = postController.posts[indexPath.row]
         
         switch post.mediaType {
-            
         case .image:
-            
             guard let ratio = post.ratio else { return size }
-            
             size.height = size.width * ratio
             
-            // TODO: this is temporary unless the cell size is adequate.
         case .audio:
             return size
+            
+        case .video:
+            guard let ratio = post.ratio else { return size }
+            size.height = size.width * ratio
         }
         
         return size
@@ -145,6 +158,54 @@ class PostsCollectionViewController: UICollectionViewController, UICollectionVie
             
             if let data = fetchOp.mediaData {
                 imagePostCell.setImage(UIImage(data: data))
+                self.collectionView.reloadItems(at: [indexPath])
+            }
+        }
+        
+        cacheOp.addDependency(fetchOp)
+        completionOp.addDependency(fetchOp)
+        
+        mediaFetchQueue.addOperation(fetchOp)
+        mediaFetchQueue.addOperation(cacheOp)
+        OperationQueue.main.addOperation(completionOp)
+        
+        operations[postID] = fetchOp
+    }
+    
+    func loadVideo(for videoPostCell: VideoPostCollectionViewCell, forItemAt indexPath: IndexPath) {
+        let post = postController.posts[indexPath.row]
+        
+        guard let postID = post.postID else { return }
+        
+        if let mediaData = cache.value(for: postID),
+            let image = UIImage(data: mediaData) {
+            videoPostCell.setImage(image)
+            self.collectionView.reloadItems(at: [indexPath])
+            return
+        }
+        
+        let fetchOp = FetchMediaOperation(post: post, postController: postController)
+        
+        let cacheOp = BlockOperation {
+            if let data = fetchOp.mediaData {
+                self.cache.cache(value: data, for: postID)
+                DispatchQueue.main.async {
+                    self.collectionView.reloadItems(at: [indexPath])
+                }
+            }
+        }
+        
+        let completionOp = BlockOperation {
+            defer { self.operations.removeValue(forKey: postID) }
+            
+            if let currentIndexPath = self.collectionView?.indexPath(for: videoPostCell),
+                currentIndexPath != indexPath {
+                print("Got video for now-reused cell")
+                return
+            }
+            
+            if let data = fetchOp.mediaData {
+                videoPostCell.setImage(UIImage(data: data))
                 self.collectionView.reloadItems(at: [indexPath])
             }
         }
