@@ -81,14 +81,14 @@
                                     <outlet property="titleLabel" destination="tHt-lC-hYm" id="uRt-J9-5cc"/>
                                 </connections>
                             </collectionViewCell>
-                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" reuseIdentifier="VideoPostCell" id="H9R-jI-c9i">
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="VideoPostCell" id="H9R-jI-c9i">
                                 <rect key="frame" x="19.5" y="385" width="375" height="375"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="j2J-M0-odX">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="375"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rRG-KW-HFA">
+                                        <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rRG-KW-HFA">
                                             <rect key="frame" x="0.0" y="337" width="47" height="38"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="fOt-YV-54G">
@@ -118,10 +118,20 @@
                                                 <constraint firstAttribute="trailing" secondItem="fOt-YV-54G" secondAttribute="trailing" constant="8" id="yS0-aW-bVN"/>
                                             </constraints>
                                         </view>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6na-d1-0QJ">
+                                            <rect key="frame" x="261" y="30" width="84" height="84"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="84" id="BoC-XN-Z7r"/>
+                                                <constraint firstAttribute="height" constant="84" id="bbJ-X3-Vfu"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                            <state key="normal" image="play.circle" catalog="system"/>
+                                            <state key="selected" image="play.circle.fill" catalog="system"/>
+                                        </button>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstAttribute="bottom" secondItem="rRG-KW-HFA" secondAttribute="bottom" id="2SN-uM-URe"/>
-                                        <constraint firstItem="rRG-KW-HFA" firstAttribute="leading" secondItem="j2J-M0-odX" secondAttribute="leading" id="HOG-NN-rDa"/>
+                                        <constraint firstItem="6na-d1-0QJ" firstAttribute="top" secondItem="j2J-M0-odX" secondAttribute="top" constant="30" id="JR5-2a-k5C"/>
+                                        <constraint firstAttribute="trailing" secondItem="6na-d1-0QJ" secondAttribute="trailing" constant="30" id="Oty-us-aSK"/>
                                     </constraints>
                                 </collectionViewCellContentView>
                             </collectionViewCell>
@@ -146,11 +156,61 @@
                     <connections>
                         <segue destination="1Aw-4e-BW2" kind="show" identifier="AddImagePost" id="jaI-fq-Woc"/>
                         <segue destination="OyM-8q-Icp" kind="show" identifier="ViewImagePost" id="hhs-es-AdQ"/>
+                        <segue destination="QuD-QZ-D4j" kind="show" identifier="AddVideoPost" id="eoc-I2-OmB"/>
                     </connections>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WRz-lg-pQU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1216.8" y="108.39580209895054"/>
+            <point key="canvasLocation" x="1215.9420289855072" y="107.8125"/>
+        </scene>
+        <!--Video Post View Controller-->
+        <scene sceneID="c6R-Za-G8R">
+            <objects>
+                <viewController id="QuD-QZ-D4j" customClass="VideoPostViewController" customModule="LambdaTimeline" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="eGg-50-dXs">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2g5-8A-uJO">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m30-eL-UMd">
+                                        <rect key="frame" x="167" y="736" width="80" height="80"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="80" id="5G8-zH-RRB"/>
+                                            <constraint firstAttribute="height" constant="80" id="D5c-nO-b1g"/>
+                                        </constraints>
+                                        <state key="normal" image="video.circle" catalog="system"/>
+                                        <state key="selected" image="video.circle.fill" catalog="system"/>
+                                        <connections>
+                                            <action selector="startStopRecording:" destination="QuD-QZ-D4j" eventType="touchUpInside" id="1rZ-OL-MTx"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstItem="m30-eL-UMd" firstAttribute="centerX" secondItem="2g5-8A-uJO" secondAttribute="centerX" id="38Q-yj-wIC"/>
+                                    <constraint firstAttribute="bottom" secondItem="m30-eL-UMd" secondAttribute="bottom" constant="80" id="CZk-74-2l4"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="2g5-8A-uJO" firstAttribute="top" secondItem="eGg-50-dXs" secondAttribute="top" id="9zN-FX-I2U"/>
+                            <constraint firstAttribute="bottom" secondItem="2g5-8A-uJO" secondAttribute="bottom" id="QkP-Lz-YIl"/>
+                            <constraint firstAttribute="trailing" secondItem="2g5-8A-uJO" secondAttribute="trailing" id="ZbZ-tF-Exd"/>
+                            <constraint firstItem="2g5-8A-uJO" firstAttribute="leading" secondItem="eGg-50-dXs" secondAttribute="leading" id="h2c-6g-jJy"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="pOa-qA-tKy"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="SE4-g5-G6m"/>
+                    <connections>
+                        <outlet property="recordButton" destination="m30-eL-UMd" id="Ghj-rU-iT1"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="YJp-am-bVg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1922" y="508"/>
         </scene>
         <!--Title-->
         <scene sceneID="kP9-yp-I8H">
@@ -314,7 +374,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XXa-A2-VJT" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1969" y="-195"/>
+            <point key="canvasLocation" x="1948" y="-398"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="gdW-Je-ais">
@@ -513,7 +573,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CdL-Y3-4ej" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1968.8" y="472.71364317841085"/>
+            <point key="canvasLocation" x="2662" y="-398"/>
         </scene>
         <!--Record Comment View Controller-->
         <scene sceneID="YiV-0H-8qP">
@@ -571,14 +631,18 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xpa-QB-4U7" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2776" y="479"/>
+            <point key="canvasLocation" x="3396" y="-398"/>
         </scene>
     </scenes>
     <resources>
         <image name="contrast" width="512" height="512"/>
         <image name="exposure" width="186" height="186"/>
         <image name="hue" width="512" height="512"/>
+        <image name="play.circle" catalog="system" width="64" height="60"/>
+        <image name="play.circle.fill" catalog="system" width="64" height="60"/>
         <image name="scaleDown" width="512" height="512"/>
         <image name="swirl" width="220" height="156"/>
+        <image name="video.circle" catalog="system" width="64" height="60"/>
+        <image name="video.circle.fill" catalog="system" width="64" height="60"/>
     </resources>
 </document>
