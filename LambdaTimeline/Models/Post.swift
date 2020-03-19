@@ -32,10 +32,10 @@ class Post {
 //        return comments.first?.text
 //    }
     
-    init(title: String, mediaURL: URL, ratio: CGFloat? = nil, author: Author, timestamp: Date = Date(), comments: [Comment]? = []) {
+    init(title: String, mediaURL: URL, mediaType: MediaType, ratio: CGFloat? = nil, author: Author, timestamp: Date = Date(), comments: [Comment]? = []) {
         self.mediaURL = mediaURL
         self.ratio = ratio
-        self.mediaType = .image
+        self.mediaType = mediaType
         self.author = author
         self.comments = comments
 //        self.comments = [Comment(text: title, author: author)]

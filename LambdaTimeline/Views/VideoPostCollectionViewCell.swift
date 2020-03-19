@@ -18,9 +18,11 @@ class VideoPostCollectionViewCell: UICollectionViewCell {
     var player: AVPlayer!
     
     @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var playerView: UIView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var authorLabel: UILabel!
     @IBOutlet weak var labelBackgroundView: UIView!
+    @IBOutlet weak var playButton: UIButton!
     
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -39,6 +41,9 @@ class VideoPostCollectionViewCell: UICollectionViewCell {
         
         titleLabel.text = post.title
         authorLabel.text = post.author.displayName
+    }
+    
+    @IBAction func playPauseVideo(_ sender: UIButton) {
     }
     
     func setupLabelBackgroundView() {
