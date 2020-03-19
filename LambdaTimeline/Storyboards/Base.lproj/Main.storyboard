@@ -171,40 +171,37 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2g5-8A-uJO">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2g5-8A-uJO" customClass="CameraPreviewView" customModule="LambdaTimeline" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m30-eL-UMd">
-                                        <rect key="frame" x="167" y="736" width="80" height="80"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="80" id="5G8-zH-RRB"/>
-                                            <constraint firstAttribute="height" constant="80" id="D5c-nO-b1g"/>
-                                        </constraints>
-                                        <state key="normal" image="record"/>
-                                        <state key="selected" image="video.circle.fill" catalog="system"/>
-                                        <connections>
-                                            <action selector="startStopRecording:" destination="QuD-QZ-D4j" eventType="touchUpInside" id="1rZ-OL-MTx"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                <constraints>
-                                    <constraint firstItem="m30-eL-UMd" firstAttribute="centerX" secondItem="2g5-8A-uJO" secondAttribute="centerX" id="38Q-yj-wIC"/>
-                                    <constraint firstAttribute="bottom" secondItem="m30-eL-UMd" secondAttribute="bottom" constant="80" id="CZk-74-2l4"/>
-                                </constraints>
                             </view>
+                            <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m30-eL-UMd">
+                                <rect key="frame" x="167" y="697" width="80" height="80"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="80" id="5G8-zH-RRB"/>
+                                    <constraint firstAttribute="height" constant="80" id="D5c-nO-b1g"/>
+                                </constraints>
+                                <state key="normal" image="record"/>
+                                <state key="selected" image="video.circle.fill" catalog="system"/>
+                                <connections>
+                                    <action selector="startStopRecording:" destination="QuD-QZ-D4j" eventType="touchUpInside" id="1rZ-OL-MTx"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="2g5-8A-uJO" firstAttribute="top" secondItem="eGg-50-dXs" secondAttribute="top" id="9zN-FX-I2U"/>
+                            <constraint firstItem="m30-eL-UMd" firstAttribute="centerX" secondItem="eGg-50-dXs" secondAttribute="centerX" id="DVI-bq-Qae"/>
                             <constraint firstAttribute="bottom" secondItem="2g5-8A-uJO" secondAttribute="bottom" id="QkP-Lz-YIl"/>
                             <constraint firstAttribute="trailing" secondItem="2g5-8A-uJO" secondAttribute="trailing" id="ZbZ-tF-Exd"/>
                             <constraint firstItem="2g5-8A-uJO" firstAttribute="leading" secondItem="eGg-50-dXs" secondAttribute="leading" id="h2c-6g-jJy"/>
+                            <constraint firstItem="pOa-qA-tKy" firstAttribute="bottom" secondItem="m30-eL-UMd" secondAttribute="bottom" constant="85" id="jBa-QO-euh"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="pOa-qA-tKy"/>
                     </view>
                     <navigationItem key="navigationItem" id="SE4-g5-G6m"/>
                     <connections>
+                        <outlet property="cameraView" destination="2g5-8A-uJO" id="qw5-CS-fwc"/>
                         <outlet property="recordButton" destination="m30-eL-UMd" id="Ghj-rU-iT1"/>
                     </connections>
                 </viewController>

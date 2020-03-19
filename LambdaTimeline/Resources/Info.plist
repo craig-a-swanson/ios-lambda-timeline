@@ -29,12 +29,12 @@
 	</array>
 	<key>CFBundleVersion</key>
 	<string>1</string>
-	<key>NSMicrophoneUsageDescription</key>
-	<string>$(PRODUCT_NAME) uses the microphone to support audio recordings.</string>
-	<key>NSCameraUsageDescription</key>
-	<string>$(PRODUCT_NAME) uses the camera to create video recordings.</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSCameraUsageDescription</key>
+	<string>$(PRODUCT_NAME) uses the camera to create video recordings.</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>$(PRODUCT_NAME) uses the microphone to support audio recordings.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>In order to allow you to add photos to posts</string>
 	<key>UILaunchStoryboardName</key>
