@@ -14,6 +14,9 @@ class VideoPostViewController: UIViewController {
     // MARK: - Properties
     lazy private var captureSession = AVCaptureSession()
     lazy private var fileOutput = AVCaptureMovieFileOutput()
+    var recordingURL: URL?
+    var videoData: Data?
+    var postController: PostController?
     var player: AVPlayer!
     
     @IBOutlet weak var recordButton: UIButton!
@@ -49,8 +52,44 @@ class VideoPostViewController: UIViewController {
     
     @IBAction func saveVideo(_ sender: UIBarButtonItem) {
         
+        guard let recordingURL = recordingURL else { return }
+        do {
+            videoData = try Data(contentsOf: recordingURL)
+        } catch {
+            print("Error getting contents of recording file: \(error)")
+        }
         
-        navigationController?.popViewController(animated: true)
+        let alert = UIAlertController(title: "Add a Title", message: "Add a title to display with your video", preferredStyle: .alert)
+        
+        var titleTextField: UITextField?
+        alert.addTextField { (textField) in
+            textField.placeholder = "Video Title"
+            titleTextField = textField
+        }
+        
+        let addTitleAction = UIAlertAction(title: "Add", style: .default) { (_) in
+            guard let titleText = titleTextField?.text,
+                let videoData = self.videoData else { return }
+            
+            self.postController?.createPost(with: titleText, ofType: .video, mediaData: videoData, ratio: nil) { (success) in
+                guard success else {
+                    DispatchQueue.main.async {
+                        self.presentInformationalAlertController(title: "Error", message: "Unable to create post. Try again.")
+                    }
+                    return
+                }
+                DispatchQueue.main.async {
+                    self.navigationController?.popViewController(animated: true)
+                }
+            }
+        }
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        
+        alert.addAction(addTitleAction)
+        alert.addAction(cancelAction)
+        
+        present(alert, animated: true, completion: nil)
     }
     
     // MARK: - Methods
@@ -165,6 +204,7 @@ class VideoPostViewController: UIViewController {
         
         let name = formatter.string(from: Date())
         let fileURL = documentsDirectory.appendingPathComponent(name).appendingPathExtension("mov")
+        recordingURL = fileURL
         return fileURL
     }
     
