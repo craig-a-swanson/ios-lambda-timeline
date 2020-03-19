@@ -199,7 +199,13 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="pOa-qA-tKy"/>
                     </view>
-                    <navigationItem key="navigationItem" id="SE4-g5-G6m"/>
+                    <navigationItem key="navigationItem" id="SE4-g5-G6m">
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="OOs-5N-y8x">
+                            <connections>
+                                <action selector="saveVideo:" destination="QuD-QZ-D4j" id="P9b-Cj-El1"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="cameraView" destination="2g5-8A-uJO" id="qw5-CS-fwc"/>
                         <outlet property="recordButton" destination="m30-eL-UMd" id="Ghj-rU-iT1"/>
@@ -207,7 +213,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YJp-am-bVg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1922" y="508"/>
+            <point key="canvasLocation" x="1945" y="488"/>
         </scene>
         <!--Title-->
         <scene sceneID="kP9-yp-I8H">
@@ -371,7 +377,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XXa-A2-VJT" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1948" y="-398"/>
+            <point key="canvasLocation" x="1946" y="-242"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="gdW-Je-ais">
@@ -570,7 +576,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CdL-Y3-4ej" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2662" y="-398"/>
+            <point key="canvasLocation" x="2641" y="-242"/>
         </scene>
         <!--Record Comment View Controller-->
         <scene sceneID="YiV-0H-8qP">
@@ -628,7 +634,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xpa-QB-4U7" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3396" y="-398"/>
+            <point key="canvasLocation" x="3335" y="-242"/>
         </scene>
     </scenes>
     <resources>

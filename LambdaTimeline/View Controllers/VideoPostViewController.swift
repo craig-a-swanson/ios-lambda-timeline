@@ -47,6 +47,12 @@ class VideoPostViewController: UIViewController {
         toggleRecording()
     }
     
+    @IBAction func saveVideo(_ sender: UIBarButtonItem) {
+        
+        
+        navigationController?.popViewController(animated: true)
+    }
+    
     // MARK: - Methods
     @objc func handleTapGesture(_ tapGesture: UITapGestureRecognizer) {
         switch(tapGesture.state) {
