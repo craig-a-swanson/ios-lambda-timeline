@@ -63,11 +63,10 @@ class VideoPostViewController: UIViewController {
         let playerLayer = AVPlayerLayer(player: player)
         
         var topRect = view.bounds
-        topRect.size.height /= 4
-        topRect.size.width /= 4
-        topRect.origin.y = view.layoutMargins.top
+        topRect.origin.y = view.frame.origin.y
         
         playerLayer.frame = topRect
+        playerLayer.videoGravity = .resizeAspectFill
         view.layer.addSublayer(playerLayer)
         
         player.play()
@@ -177,8 +176,7 @@ extension VideoPostViewController: AVCaptureFileOutputRecordingDelegate {
         if let error = error {
             print("Error saving video: \(error)")
         }
-        
-        print("Video URL: \(outputFileURL)")
+
         updateViews()
         playMovie(url: outputFileURL)
     }
