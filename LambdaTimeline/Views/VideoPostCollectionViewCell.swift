@@ -15,10 +15,15 @@ class VideoPostCollectionViewCell: UICollectionViewCell {
             updateViews()
         }
     }
-    var player: AVPlayer!
+    var player: AVPlayer? {
+        didSet {
+            playRecording()
+        }
+    }
+    var recordingData: Data?
     
     @IBOutlet weak var imageView: UIImageView!
-    @IBOutlet weak var playerView: UIView!
+    @IBOutlet weak var playerView: VideoReplayView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var authorLabel: UILabel!
     @IBOutlet weak var labelBackgroundView: UIView!
@@ -26,15 +31,16 @@ class VideoPostCollectionViewCell: UICollectionViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
+//        playerView.videoPlayerLayer.videoGravity = .resizeAspectFill
         setupLabelBackgroundView()
     }
-    override func prepareForReuse() {
-        super.prepareForReuse()
-        
-        imageView.image = nil
-        titleLabel.text = ""
-        authorLabel.text = ""
-    }
+//    override func prepareForReuse() {
+//        super.prepareForReuse()
+//
+//        imageView.image = nil
+//        titleLabel.text = ""
+//        authorLabel.text = ""
+//    }
     
     func updateViews() {
         guard let post = post else { return }
@@ -43,7 +49,17 @@ class VideoPostCollectionViewCell: UICollectionViewCell {
         authorLabel.text = post.author.displayName
     }
     
+    func playRecording() {
+        guard let player = player,
+        let view = playerView else { return }
+        let playerLayer = AVPlayerLayer(player: player)
+        view.layer.addSublayer(playerLayer)
+        
+        player.play()
+    }
+    
     @IBAction func playPauseVideo(_ sender: UIButton) {
+        playRecording()
     }
     
     func setupLabelBackgroundView() {
@@ -53,7 +69,7 @@ class VideoPostCollectionViewCell: UICollectionViewCell {
         labelBackgroundView.clipsToBounds = true
     }
     
-    func setImage(_ image: UIImage?) {
-        imageView.image = image
-    }
+//    func setImage(_ image: UIImage?) {
+//        imageView.image = image
+//    }
 }

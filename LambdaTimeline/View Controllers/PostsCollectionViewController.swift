@@ -206,9 +206,10 @@ class PostsCollectionViewController: UICollectionViewController, UICollectionVie
         
         guard let postID = post.postID else { return }
         
-        if let mediaData = cache.value(for: postID),
-            let image = UIImage(data: mediaData) {
-            videoPostCell.setImage(image)
+        if let mediaData = cache.value(for: postID) {
+//            let mediaAsset = AVAsset(url: post.mediaURL)
+//            let playerItem = AVPlayerItem(asset: mediaAsset)
+            videoPostCell.player = AVPlayer(data: mediaData)
             self.collectionView.reloadItems(at: [indexPath])
             return
         }
@@ -234,7 +235,7 @@ class PostsCollectionViewController: UICollectionViewController, UICollectionVie
             }
             
             if let data = fetchOp.mediaData {
-                videoPostCell.setImage(UIImage(data: data))
+                videoPostCell.player = AVPlayer(data: data)
                 self.collectionView.reloadItems(at: [indexPath])
             }
         }
