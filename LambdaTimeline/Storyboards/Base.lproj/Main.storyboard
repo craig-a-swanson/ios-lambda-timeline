@@ -667,7 +667,7 @@
                             <rect key="frame" x="0.0" y="0.0" width="414" height="105"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
-                                <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="34" translatesAutoresizingMaskIntoConstraints="NO" id="wJP-vw-FrT">
+                                <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="wJP-vw-FrT">
                                     <rect key="frame" x="8" y="2" width="398" height="95"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="4ll-5k-PiG">
@@ -677,16 +677,16 @@
                                             </constraints>
                                         </imageView>
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="b4E-9o-I1J">
-                                            <rect key="frame" x="129" y="23" width="269" height="49"/>
+                                            <rect key="frame" x="100" y="23" width="298" height="49"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3fH-H8-Geq">
-                                                    <rect key="frame" x="0.0" y="0.0" width="269" height="20.5"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="298" height="20.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jPU-ek-LeX">
-                                                    <rect key="frame" x="0.0" y="28.5" width="269" height="20.5"/>
+                                                    <rect key="frame" x="0.0" y="28.5" width="298" height="20.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -792,6 +792,7 @@
                         <outlet property="imageView" destination="4ll-5k-PiG" id="0bc-h2-OL4"/>
                         <outlet property="imageViewAspectRatioConstraint" destination="GQW-C0-gEG" id="dY7-2F-iAk"/>
                         <outlet property="titleLabel" destination="3fH-H8-Geq" id="0lt-8p-Jio"/>
+                        <segue destination="X3X-gM-zWs" kind="presentation" identifier="RecordCommentVideoDetail" id="RKM-sS-Ix4"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Mhi-2s-Lxo" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -810,4 +811,7 @@
         <image name="swirl" width="220" height="156"/>
         <image name="video.circle.fill" catalog="system" width="64" height="60"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="Fhd-Zy-x1w"/>
+    </inferredMetricsTieBreakers>
 </document>

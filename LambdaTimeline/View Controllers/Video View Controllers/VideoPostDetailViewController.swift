@@ -128,7 +128,7 @@ class VideoPostDetailViewController: UITableViewController {
         
         // MARK: - Navigation
         override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-            if segue.identifier == "RecordCommentSegue" {
+            if segue.identifier == "RecordCommentVideoDetail" {
                 guard let recordVC = segue.destination as? RecordCommentViewController else { return }
                 
                 recordVC.postController = postController

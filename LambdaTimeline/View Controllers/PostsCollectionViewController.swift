@@ -136,14 +136,14 @@ class PostsCollectionViewController: UICollectionViewController, UICollectionVie
     }
     
     
-    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let cell = collectionView.cellForItem(at: indexPath)
-        
-        if let cell = cell as? ImagePostCollectionViewCell,
-            cell.imageView.image != nil {
-            self.performSegue(withIdentifier: "ViewImagePost", sender: nil)
-        }
-    }
+//    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+//        let cell = collectionView.cellForItem(at: indexPath)
+//        
+//        if let cell = cell as? ImagePostCollectionViewCell,
+//            cell.imageView.image != nil {
+//            self.performSegue(withIdentifier: "ViewImagePost", sender: nil)
+//        }
+//    }
     
     override func collectionView(_ collectionView: UICollectionView, didEndDisplayingSupplementaryView view: UICollectionReusableView, forElementOfKind elementKind: String, at indexPath: IndexPath) {
         
@@ -249,29 +249,31 @@ class PostsCollectionViewController: UICollectionViewController, UICollectionVie
         
         operations[postID] = fetchOp
     }
-    // MARK: - Navigation
     
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "AddImagePost" {
             let destinationVC = segue.destination as? ImagePostViewController
             destinationVC?.postController = postController
             
         } else if segue.identifier == "ViewImagePost" {
-            
             let destinationVC = segue.destination as? ImagePostDetailTableViewController
             
-            guard let indexPath = collectionView.indexPathsForSelectedItems?.first,
+            guard let cell = sender as? UICollectionViewCell,
+            let indexPath = self.collectionView.indexPath(for: cell),
                 let postID = postController.posts[indexPath.row].postID else { return }
             
             destinationVC?.postController = postController
             destinationVC?.post = postController.posts[indexPath.row]
             destinationVC?.imageData = cache.value(for: postID)
+            
         } else if segue.identifier == "AddVideoPost" {
             let addVideoVC = segue.destination as? VideoPostViewController
             addVideoVC?.postController = postController
+            
         } else if segue.identifier == "ViewVideoPost" {
             let videoPostDetailVC = segue.destination as? VideoPostDetailViewController
+            
             guard let cell = sender as? UICollectionViewCell,
                 let indexPath = self.collectionView.indexPath(for: cell),
                 let postID = postController.posts[indexPath.row].postID else { return }

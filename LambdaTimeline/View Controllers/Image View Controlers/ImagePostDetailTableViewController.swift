@@ -49,7 +49,6 @@ class ImagePostDetailTableViewController: UITableViewController {
         title = post.title
         
         imageView.image = image
-        
         titleLabel.text = post.title
         authorLabel.text = post.author.displayName
     }
@@ -63,11 +62,9 @@ class ImagePostDetailTableViewController: UITableViewController {
                 self.performSegue(withIdentifier: "RecordCommentSegue", sender: self)
             }
         }
-        
         let textAction = UIAlertAction(title: "Text Comment", style: .default) { action in
             self.addTextCommentAlert()
         }
-        
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         
         alert.addAction(audioAction)
@@ -87,9 +84,7 @@ class ImagePostDetailTableViewController: UITableViewController {
                     textField.placeholder = "Comment:"
                     commentTextField = textField
                 }
-        
                 let addCommentAction = UIAlertAction(title: "Add Comment", style: .default) { (_) in
-        
                     guard let commentText = commentTextField?.text else { return }
         
                     self.postController.addTextComment(with: commentText, with: nil, to: self.post!) {
@@ -98,7 +93,6 @@ class ImagePostDetailTableViewController: UITableViewController {
                         }
                     }
                 }
-                
                 let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
                 
                 alert.addAction(addCommentAction)
