@@ -41,11 +41,11 @@ class ImagePostDetailTableViewController: UITableViewController {
         guard let imageData = imageData,
             let image = UIImage(data: imageData),
         let post = post else { return }
-        postController.fetchComments(with: post) {
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
-            }
-        }
+//        postController.fetchComments(with: post) {
+//            DispatchQueue.main.async {
+//                self.tableView.reloadData()
+//            }
+//        }
         title = post.title
         
         imageView.image = image
