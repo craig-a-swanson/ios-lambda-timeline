@@ -25,14 +25,10 @@ class Post {
     var comments: [Comment]?
     var postID: String?
     var ratio: CGFloat?
-    
-    var title: String?
-//    {
-//        guard let comments = comments else { return "" }
-//        return comments.first?.text
-//    }
+    var title: String
     
     init(title: String, mediaURL: URL, mediaType: MediaType, ratio: CGFloat? = nil, author: Author, timestamp: Date = Date(), comments: [Comment]? = []) {
+        self.title = title
         self.mediaURL = mediaURL
         self.ratio = ratio
         self.mediaType = mediaType
@@ -44,7 +40,8 @@ class Post {
     
     // Convert from a dictionary needed by Firebase back to our Post object
     init?(dictionary: [String : Any], id: String) {
-        guard let mediaURLString = dictionary[Post.mediaKey] as? String,
+        guard let title = dictionary[Post.titleKey] as? String,
+            let mediaURLString = dictionary[Post.mediaKey] as? String,
             let mediaURL = URL(string: mediaURLString),
             let mediaTypeString = dictionary[Post.mediaTypeKey] as? String,
             let mediaType = MediaType(rawValue: mediaTypeString),
@@ -53,6 +50,7 @@ class Post {
             let timestampTimeInterval = dictionary[Post.timestampKey] as? TimeInterval else { return nil }
 //            let captionDictionaries = dictionary[Post.commentsKey] as? [[String: Any]] else { return nil }
         
+        self.title = title
         self.mediaURL = mediaURL
         self.mediaType = mediaType
         self.ratio = dictionary[Post.ratioKey] as? CGFloat
@@ -64,7 +62,8 @@ class Post {
     
     // Convert to a dictionary using the key constants defined below as the dictionary keys
     var dictionaryRepresentation: [String : Any] {
-        var dict: [String: Any] = [Post.mediaKey: mediaURL.absoluteString,
+        var dict: [String: Any] = [Post.titleKey: title,
+            Post.mediaKey: mediaURL.absoluteString,
                 Post.mediaTypeKey: mediaType.rawValue,
 //                Post.commentsKey: comments.map({ $0.dictionaryRepresentation }),
                 Post.authorKey: author.dictionaryRepresentation,
@@ -77,6 +76,7 @@ class Post {
         return dict
     }
     
+    static private let titleKey = "title"
     static private let mediaKey = "media"
     static private let ratioKey = "ratio"
     static private let mediaTypeKey = "mediaType"

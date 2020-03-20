@@ -270,6 +270,15 @@ class PostsCollectionViewController: UICollectionViewController, UICollectionVie
         } else if segue.identifier == "AddVideoPost" {
             let addVideoVC = segue.destination as? VideoPostViewController
             addVideoVC?.postController = postController
+        } else if segue.identifier == "ViewVideoPost" {
+            let videoPostDetailVC = segue.destination as? VideoPostDetailViewController
+            guard let cell = sender as? UICollectionViewCell,
+                let indexPath = self.collectionView.indexPath(for: cell),
+                let postID = postController.posts[indexPath.row].postID else { return }
+            
+            videoPostDetailVC?.postController = postController
+            videoPostDetailVC?.post = postController.posts[indexPath.row]
+            
         }
     }
     

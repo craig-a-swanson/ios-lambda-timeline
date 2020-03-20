@@ -198,6 +198,4 @@ extension ImagePostDetailTableViewController: RecordCommentVCDelegate {
         self.post = post
         self.tableView.reloadData()
     }
-    
-    
 }

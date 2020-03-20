@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		441AF57A2424507600981AB1 /* VideoReplayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441AF5792424507600981AB1 /* VideoReplayView.swift */; };
 		441AF57C24245A5F00981AB1 /* AVPlayer+Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441AF57B24245A5F00981AB1 /* AVPlayer+Data.swift */; };
+		441AF57E2424639300981AB1 /* VideoPostDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441AF57D2424639300981AB1 /* VideoPostDetailViewController.swift */; };
 		44D5419C241EE6B600432463 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 44D5419B241EE6B600432463 /* GoogleService-Info.plist */; };
 		44D5419E241F0E2F00432463 /* RecordCommentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44D5419D241F0E2F00432463 /* RecordCommentViewController.swift */; };
 		44D541A02420596D00432463 /* ImagePostDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44D5419F2420596D00432463 /* ImagePostDetailTableViewCell.swift */; };
@@ -45,6 +46,7 @@
 		33A2B89DE9E21538434BD640 /* Pods-LambdaTimeline.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LambdaTimeline.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LambdaTimeline/Pods-LambdaTimeline.debug.xcconfig"; sourceTree = "<group>"; };
 		441AF5792424507600981AB1 /* VideoReplayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoReplayView.swift; sourceTree = "<group>"; };
 		441AF57B24245A5F00981AB1 /* AVPlayer+Data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AVPlayer+Data.swift"; sourceTree = "<group>"; };
+		441AF57D2424639300981AB1 /* VideoPostDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPostDetailViewController.swift; sourceTree = "<group>"; };
 		44D5419B241EE6B600432463 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		44D5419D241F0E2F00432463 /* RecordCommentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordCommentViewController.swift; sourceTree = "<group>"; };
 		44D5419F2420596D00432463 /* ImagePostDetailTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePostDetailTableViewCell.swift; sourceTree = "<group>"; };
@@ -99,6 +101,25 @@
 				5D2CCD6C68779B0A70AC37FA /* Pods-LambdaTimeline.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		441AF57F242463B100981AB1 /* Image View Controlers */ = {
+			isa = PBXGroup;
+			children = (
+				46CFE6F421707D0000E7FF73 /* ImagePostViewController.swift */,
+				46D571F72173FC2700E7FF73 /* ImagePostDetailTableViewController.swift */,
+				44D5419D241F0E2F00432463 /* RecordCommentViewController.swift */,
+			);
+			path = "Image View Controlers";
+			sourceTree = "<group>";
+		};
+		441AF580242463C300981AB1 /* Video View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				44E014F02422DE9800229A02 /* VideoPostViewController.swift */,
+				441AF57D2424639300981AB1 /* VideoPostDetailViewController.swift */,
+			);
+			path = "Video View Controllers";
 			sourceTree = "<group>";
 		};
 		4646376F216FDE4B00E7FF73 = {
@@ -176,10 +197,8 @@
 			children = (
 				46A0366C2170158900E7FF73 /* SignInViewController.swift */,
 				46A0366921700F5100E7FF73 /* PostsCollectionViewController.swift */,
-				46CFE6F421707D0000E7FF73 /* ImagePostViewController.swift */,
-				46D571F72173FC2700E7FF73 /* ImagePostDetailTableViewController.swift */,
-				44D5419D241F0E2F00432463 /* RecordCommentViewController.swift */,
-				44E014F02422DE9800229A02 /* VideoPostViewController.swift */,
+				441AF57F242463B100981AB1 /* Image View Controlers */,
+				441AF580242463C300981AB1 /* Video View Controllers */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -378,6 +397,7 @@
 				46CFE6FB21714E6100E7FF73 /* Author.swift in Sources */,
 				46CFE6F92170862C00E7FF73 /* ShiftableViewController.swift in Sources */,
 				44E014F12422DE9800229A02 /* VideoPostViewController.swift in Sources */,
+				441AF57E2424639300981AB1 /* VideoPostDetailViewController.swift in Sources */,
 				4646377C216FDE4B00E7FF73 /* AppDelegate.swift in Sources */,
 				46CFE6FD217154F500E7FF73 /* Networking.swift in Sources */,
 				46CFE6F521707D0000E7FF73 /* ImagePostViewController.swift in Sources */,
