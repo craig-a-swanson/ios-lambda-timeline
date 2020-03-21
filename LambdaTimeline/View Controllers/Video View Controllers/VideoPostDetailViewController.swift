@@ -53,7 +53,7 @@ class VideoPostDetailViewController: UITableViewController {
             
             let audioAction = UIAlertAction(title: "Audio Comment", style: .default) { action in
                 DispatchQueue.main.async {
-                    self.performSegue(withIdentifier: "RecordCommentSegue", sender: self)
+                    self.performSegue(withIdentifier: "RecordCommentVideoDetail", sender: self)
                 }
             }
             
@@ -111,13 +111,13 @@ class VideoPostDetailViewController: UITableViewController {
             let comment = comments[indexPath.row]
             
             if let audioURL = comment.audioURL {
-                guard let cell = tableView.dequeueReusableCell(withIdentifier: "AudioCommentCell", for: indexPath) as? ImagePostDetailTableViewCell else { return UITableViewCell() }
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: "AudioCommentCellVideo", for: indexPath) as? VideoPostDetailTableViewCell else { return UITableViewCell() }
                 cell.audioURL = audioURL
                 cell.authorLabel.text = comment.author.displayName
                 loadAudio(for: cell, forItemAt: indexPath)
                 return cell
             } else {
-                let cell = tableView.dequeueReusableCell(withIdentifier: "TextCommentCell", for: indexPath)
+                let cell = tableView.dequeueReusableCell(withIdentifier: "TextCommentCellVideo", for: indexPath)
                 
                 cell.textLabel?.text = comment.text
                 cell.detailTextLabel?.text = comment.author.displayName
@@ -137,7 +137,7 @@ class VideoPostDetailViewController: UITableViewController {
             }
         }
         
-        private func loadAudio(for audioCell: ImagePostDetailTableViewCell, forItemAt indexPath: IndexPath) {
+        private func loadAudio(for audioCell: VideoPostDetailTableViewCell, forItemAt indexPath: IndexPath) {
             
             let comment = post!.comments![indexPath.row]
             guard let audioURL = comment.audioURL else {

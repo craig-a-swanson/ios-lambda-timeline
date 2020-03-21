@@ -708,7 +708,7 @@
                             </constraints>
                         </view>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="TextCommentCell" textLabel="B6R-Ws-395" detailTextLabel="ZWv-TJ-Jcr" style="IBUITableViewCellStyleSubtitle" id="9Nf-Q7-E2O">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="TextCommentCellVideo" textLabel="B6R-Ws-395" detailTextLabel="ZWv-TJ-Jcr" style="IBUITableViewCellStyleSubtitle" id="9Nf-Q7-E2O">
                                 <rect key="frame" x="0.0" y="133" width="414" height="55.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="9Nf-Q7-E2O" id="biM-gV-ele">
@@ -732,7 +732,7 @@
                                     </subviews>
                                 </tableViewCellContentView>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="AudioCommentCell" id="Bbb-8c-gDN" customClass="ImagePostDetailTableViewCell" customModule="LambdaTimeline" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="AudioCommentCellVideo" id="Bbb-8c-gDN" customClass="VideoPostDetailTableViewCell" customModule="LambdaTimeline" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="188.5" width="414" height="52"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Bbb-8c-gDN" id="Tzz-mx-8XK">
@@ -756,7 +756,7 @@
                                                     </state>
                                                     <state key="selected" title="Tap to Pause Playback"/>
                                                     <connections>
-                                                        <action selector="togglePlayback:" destination="Bbb-8c-gDN" eventType="touchUpInside" id="icp-1v-xLa"/>
+                                                        <action selector="togglePlayback:" destination="Bbb-8c-gDN" eventType="touchUpInside" id="uTW-hM-008"/>
                                                     </connections>
                                                 </button>
                                             </subviews>
@@ -770,8 +770,8 @@
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <outlet property="authorLabel" destination="tVl-wu-PJq" id="yfb-fs-rz1"/>
-                                    <outlet property="commentAudioControl" destination="x1u-4L-RjU" id="YWf-4s-MOh"/>
+                                    <outlet property="authorLabel" destination="tVl-wu-PJq" id="Uwy-72-yC7"/>
+                                    <outlet property="commentAudioControl" destination="x1u-4L-RjU" id="ABz-lJ-rur"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -812,6 +812,6 @@
         <image name="video.circle.fill" catalog="system" width="64" height="60"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Fhd-Zy-x1w"/>
+        <segue reference="RKM-sS-Ix4"/>
     </inferredMetricsTieBreakers>
 </document>
