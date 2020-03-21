@@ -53,6 +53,7 @@ class VideoPostCollectionViewCell: UICollectionViewCell {
         guard let player = player,
         let view = playerView else { return }
         let playerLayer = AVPlayerLayer(player: player)
+        playerLayer.frame = view.bounds
         view.layer.addSublayer(playerLayer)
         
         player.play()
