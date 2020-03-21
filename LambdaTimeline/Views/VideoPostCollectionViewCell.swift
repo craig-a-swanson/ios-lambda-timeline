@@ -52,8 +52,15 @@ class VideoPostCollectionViewCell: UICollectionViewCell {
     func playRecording() {
         guard let player = player,
         let view = playerView else { return }
+        player.seek(to: CMTime.zero)
         let playerLayer = AVPlayerLayer(player: player)
-        playerLayer.frame = view.bounds
+        
+        var topRect = view.bounds
+        topRect.size.height /= 1
+        topRect.size.width /= 1
+        topRect.origin.y = view.layoutMargins.top
+        
+        playerLayer.frame = topRect
         view.layer.addSublayer(playerLayer)
         
         player.play()

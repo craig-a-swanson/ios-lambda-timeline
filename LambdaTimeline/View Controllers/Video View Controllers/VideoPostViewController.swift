@@ -71,7 +71,7 @@ class VideoPostViewController: UIViewController {
             guard let titleText = titleTextField?.text,
                 let videoData = self.videoData else { return }
             
-            self.postController?.createPost(with: titleText, ofType: .video, mediaData: videoData, ratio: nil) { (success) in
+            self.postController?.createPost(with: titleText, ofType: .video, mediaData: videoData, ratio: 1.3) { (success) in
                 guard success else {
                     DispatchQueue.main.async {
                         self.presentInformationalAlertController(title: "Error", message: "Unable to create post. Try again.")
