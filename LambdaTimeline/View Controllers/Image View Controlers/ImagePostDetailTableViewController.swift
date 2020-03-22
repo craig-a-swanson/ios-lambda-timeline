@@ -46,10 +46,10 @@ class ImagePostDetailTableViewController: UITableViewController {
 //                self.tableView.reloadData()
 //            }
 //        }
-        title = post.title
+        title = post.PostTitle
         
         imageView.image = image
-        titleLabel.text = post.title
+        titleLabel.text = post.PostTitle
         authorLabel.text = post.author.displayName
     }
     

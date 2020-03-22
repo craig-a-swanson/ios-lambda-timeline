@@ -9,7 +9,7 @@
 import Foundation
 import FirebaseAuth
 
-struct Author: FirebaseConvertible, Equatable {
+struct Author: FirebaseConvertible, Equatable, Decodable {
     
     init?(user: User) {
         self.init(dictionary: user.dictionaryRepresentation)

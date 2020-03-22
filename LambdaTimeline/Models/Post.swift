@@ -9,14 +9,16 @@
 import Foundation
 import Firebase
 import FirebaseAuth
+import MapKit
 
 enum MediaType: String {
     case image
     case audio
     case video
+    case location
 }
 
-class Post {
+class Post: NSObject {
     
     var mediaURL: URL
     let mediaType: MediaType
@@ -25,10 +27,11 @@ class Post {
     var comments: [Comment]?
     var postID: String?
     var ratio: CGFloat?
-    var title: String
+    var PostTitle: String
+    var geotag: CLLocationCoordinate2D?
     
-    init(title: String, mediaURL: URL, mediaType: MediaType, ratio: CGFloat? = nil, author: Author, timestamp: Date = Date(), comments: [Comment]? = []) {
-        self.title = title
+    init(title: String, mediaURL: URL, mediaType: MediaType, ratio: CGFloat? = nil, author: Author, timestamp: Date = Date(), comments: [Comment]? = [], geotag: CLLocationCoordinate2D?) {
+        self.PostTitle = title
         self.mediaURL = mediaURL
         self.ratio = ratio
         self.mediaType = mediaType
@@ -36,6 +39,7 @@ class Post {
         self.comments = comments
 //        self.comments = [Comment(text: title, author: author)]
         self.timestamp = timestamp
+        self.geotag = geotag
     }
     
     // Convert from a dictionary needed by Firebase back to our Post object
@@ -45,12 +49,14 @@ class Post {
             let mediaURL = URL(string: mediaURLString),
             let mediaTypeString = dictionary[Post.mediaTypeKey] as? String,
             let mediaType = MediaType(rawValue: mediaTypeString),
+            let latitude = dictionary[Post.latitudeKey] as? Double,
+            let longitude = dictionary[Post.longitudeKey] as? Double,
             let authorDictionary = dictionary[Post.authorKey] as? [String: Any],
             let author = Author(dictionary: authorDictionary),
             let timestampTimeInterval = dictionary[Post.timestampKey] as? TimeInterval else { return nil }
 //            let captionDictionaries = dictionary[Post.commentsKey] as? [[String: Any]] else { return nil }
         
-        self.title = title
+        self.PostTitle = title
         self.mediaURL = mediaURL
         self.mediaType = mediaType
         self.ratio = dictionary[Post.ratioKey] as? CGFloat
@@ -58,16 +64,19 @@ class Post {
         self.timestamp = Date(timeIntervalSince1970: timestampTimeInterval)
 //        self.comments = captionDictionaries.compactMap({ Comment(dictionary: $0) })
         self.postID = id
+        self.geotag = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
     }
     
     // Convert to a dictionary using the key constants defined below as the dictionary keys
     var dictionaryRepresentation: [String : Any] {
-        var dict: [String: Any] = [Post.titleKey: title,
+        var dict: [String: Any] = [Post.titleKey: PostTitle,
             Post.mediaKey: mediaURL.absoluteString,
                 Post.mediaTypeKey: mediaType.rawValue,
 //                Post.commentsKey: comments.map({ $0.dictionaryRepresentation }),
                 Post.authorKey: author.dictionaryRepresentation,
-                Post.timestampKey: timestamp.timeIntervalSince1970]
+                Post.timestampKey: timestamp.timeIntervalSince1970,
+                Post.latitudeKey: String("\(geotag?.latitude)"),
+                Post.longitudeKey: String("\(geotag?.longitude)")]
         
         guard let ratio = self.ratio else { return dict }
         
@@ -84,10 +93,12 @@ class Post {
     static private let commentsKey = "comments"
     static private let timestampKey = "timestamp"
     static private let idKey = "id"
+    static private let latitudeKey = "latitude"
+    static private let longitudeKey = "longitude"
     
     
     // MARK: - Comment Structure
-    struct Comment: FirebaseConvertible, Equatable {
+    struct Comment: FirebaseConvertible, Equatable, Decodable {
         static private let textKey = "text"
         static private let author = "author"
         static private let timestampKey = "timestamp"
@@ -126,10 +137,10 @@ class Post {
         // Convert to a dictionary for Firebase
         var dictionaryRepresentation: [String: Any] {
             return [Comment.commentIDKey: commentID as String,
-                    Comment.textKey: text,
+                    Comment.textKey: text ?? "",
                     Comment.author: author.dictionaryRepresentation,
                     Comment.timestampKey: timestamp.timeIntervalSince1970,
-                    Comment.audioURLKey: audioURL]
+                    Comment.audioURLKey: audioURL as Any]
         }
         
         static func ==(lhs: Comment, rhs: Comment) -> Bool {

@@ -36,7 +36,7 @@ class ImagePostCollectionViewCell: UICollectionViewCell {
     func updateViews() {
         guard let post = post else { return }
     
-        titleLabel.text = post.title
+        titleLabel.text = post.PostTitle
         authorLabel.text = post.author.displayName
     }
 

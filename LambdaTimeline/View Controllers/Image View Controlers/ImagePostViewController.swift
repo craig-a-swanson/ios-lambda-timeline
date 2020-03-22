@@ -158,7 +158,7 @@ class ImagePostViewController: ShiftableViewController {
         // updateImage checks the current filter state enum and assigns the slider value to the appropriate filter variable.  It then sets the imageView.image to the filtered image and calls the height method.
         private func updateImage() {
             if let scaledImage = scaledImage,
-            let selectedImage = selectedImage {
+            let _ = selectedImage {
                 switch _filter {
                 case .maskedBlur:
                     maskSliderValue = NSNumber(value: filterSlider.value)
@@ -201,7 +201,7 @@ class ImagePostViewController: ShiftableViewController {
                 filterSlider.maximumValue = 1.00
                 filterSlider.value = 1.00
             }
-            guard let selectedImage = selectedImage else { return }
+            guard selectedImage != nil else { return }
         }
         
         @IBAction func createPost(_ sender: Any) {
@@ -249,6 +249,8 @@ class ImagePostViewController: ShiftableViewController {
                 self.presentInformationalAlertController(title: "Error", message: "In order to access the photo library, you must allow this application access to it.")
             case .restricted:
                 self.presentInformationalAlertController(title: "Error", message: "Unable to access the photo library. Your device's restrictions do not allow access.")
+            @unknown default:
+                preconditionFailure("The app does not handle this new case provided by Apple")
             }
             presentImagePickerController()
         }

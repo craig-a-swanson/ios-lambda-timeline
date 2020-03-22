@@ -12,7 +12,7 @@ class VideoPostDetailViewController: UITableViewController {
     
     var post: Post? {
         didSet {
-            guard let post = post else { return }
+            guard post != nil else { return }
         }
     }
     
@@ -39,11 +39,11 @@ class VideoPostDetailViewController: UITableViewController {
                     self.tableView.reloadData()
                 }
             }
-            title = post.title
+            title = post.PostTitle
             
 //            imageView.image = image
             
-            titleLabel.text = post.title
+            titleLabel.text = post.PostTitle
             authorLabel.text = post.author.displayName
         }
         
