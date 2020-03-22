@@ -18,7 +18,7 @@ class VideoPostCollectionViewCell: UICollectionViewCell {
 //    var player: AVPlayer!
     var player: AVPlayer? {
         didSet {
-//            playRecording()
+            playRecording()
         }
     }
     var playerLayer: AVPlayerLayer?
@@ -52,18 +52,18 @@ class VideoPostCollectionViewCell: UICollectionViewCell {
            guard let player = player,
         let view = playerView else { return }
         player.seek(to: CMTime.zero)
-//        playerLayer = AVPlayerLayer(player: player)
-//        playerLayer?.videoGravity = .resizeAspectFill
-//
-//        var topRect = view.bounds
-//        topRect.origin.y = view.frame.origin.y
-//        playerLayer?.frame = topRect
-//        view.layer.addSublayer(playerLayer!)
-        view.player = player
+        playerLayer = AVPlayerLayer(player: player)
+        playerLayer?.videoGravity = .resizeAspectFill
+
+        var topRect = view.bounds
+        topRect.origin.y = view.frame.origin.y
+        playerLayer?.frame = topRect
+        view.layer.addSublayer(playerLayer!)
+//        view.player = player
+        player.play()
         if player.timeControlStatus == .playing {
             print("yyyyyyyyy")
         }
-        player.play()
     }
     
     @IBAction func playPauseVideo(_ sender: UIButton) {

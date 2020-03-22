@@ -235,6 +235,9 @@ class PostsCollectionViewController: UICollectionViewController, UICollectionVie
             }
 
             if let data = fetchOp.mediaData {
+//                let movie = AVMovie(data: data, options: .none)
+//                let playItem = AVPlayerItem(asset: movie)
+//                videoPostCell.player = AVQueuePlayer(playerItem: playItem)
                 videoPostCell.player = AVPlayer(data: data)
                 self.collectionView.reloadItems(at: [indexPath])
             }
