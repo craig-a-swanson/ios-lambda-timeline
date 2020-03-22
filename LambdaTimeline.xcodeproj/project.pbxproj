@@ -11,6 +11,7 @@
 		441AF57C24245A5F00981AB1 /* AVPlayer+Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441AF57B24245A5F00981AB1 /* AVPlayer+Data.swift */; };
 		441AF57E2424639300981AB1 /* VideoPostDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441AF57D2424639300981AB1 /* VideoPostDetailViewController.swift */; };
 		44598D3A2425A9CD005D033C /* VideoPostDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44598D392425A9CD005D033C /* VideoPostDetailTableViewCell.swift */; };
+		44598D3C2425F24C005D033C /* PlayerViewClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44598D3B2425F24C005D033C /* PlayerViewClass.swift */; };
 		44D5419C241EE6B600432463 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 44D5419B241EE6B600432463 /* GoogleService-Info.plist */; };
 		44D5419E241F0E2F00432463 /* RecordCommentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44D5419D241F0E2F00432463 /* RecordCommentViewController.swift */; };
 		44D541A02420596D00432463 /* ImagePostDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44D5419F2420596D00432463 /* ImagePostDetailTableViewCell.swift */; };
@@ -49,6 +50,7 @@
 		441AF57B24245A5F00981AB1 /* AVPlayer+Data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AVPlayer+Data.swift"; sourceTree = "<group>"; };
 		441AF57D2424639300981AB1 /* VideoPostDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPostDetailViewController.swift; sourceTree = "<group>"; };
 		44598D392425A9CD005D033C /* VideoPostDetailTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPostDetailTableViewCell.swift; sourceTree = "<group>"; };
+		44598D3B2425F24C005D033C /* PlayerViewClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerViewClass.swift; sourceTree = "<group>"; };
 		44D5419B241EE6B600432463 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		44D5419D241F0E2F00432463 /* RecordCommentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordCommentViewController.swift; sourceTree = "<group>"; };
 		44D5419F2420596D00432463 /* ImagePostDetailTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePostDetailTableViewCell.swift; sourceTree = "<group>"; };
@@ -237,6 +239,7 @@
 				46CFE6FC217154F500E7FF73 /* Networking.swift */,
 				46CFE6F82170862C00E7FF73 /* ShiftableViewController.swift */,
 				441AF5792424507600981AB1 /* VideoReplayView.swift */,
+				44598D3B2425F24C005D033C /* PlayerViewClass.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -413,6 +416,7 @@
 				46D571F82173FC2700E7FF73 /* ImagePostDetailTableViewController.swift in Sources */,
 				44D541A42422C39A00432463 /* VideoPostCollectionViewCell.swift in Sources */,
 				46CFE7032171572600E7FF73 /* ImagePostCollectionViewCell.swift in Sources */,
+				44598D3C2425F24C005D033C /* PlayerViewClass.swift in Sources */,
 				4646379C2170091A00E7FF73 /* PostController.swift in Sources */,
 				441AF57C24245A5F00981AB1 /* AVPlayer+Data.swift in Sources */,
 				464637992170048900E7FF73 /* FirebaseConvertible.swift in Sources */,

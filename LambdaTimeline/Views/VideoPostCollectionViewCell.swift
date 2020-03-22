@@ -15,54 +15,54 @@ class VideoPostCollectionViewCell: UICollectionViewCell {
             updateViews()
         }
     }
+//    var player: AVPlayer!
     var player: AVPlayer? {
         didSet {
-            playRecording()
+//            playRecording()
         }
     }
+    var playerLayer: AVPlayerLayer?
     var recordingData: Data?
     
-    @IBOutlet weak var imageView: UIImageView!
-    @IBOutlet weak var playerView: VideoReplayView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var authorLabel: UILabel!
     @IBOutlet weak var labelBackgroundView: UIView!
     @IBOutlet weak var playButton: UIButton!
+    @IBOutlet weak var playerView: PlayerViewClass!
     
     override func layoutSubviews() {
         super.layoutSubviews()
-//        playerView.videoPlayerLayer.videoGravity = .resizeAspectFill
-        setupLabelBackgroundView()
+//        setupLabelBackgroundView()
     }
-//    override func prepareForReuse() {
-//        super.prepareForReuse()
-//
-//        imageView.image = nil
-//        titleLabel.text = ""
-//        authorLabel.text = ""
-//    }
+    override func prepareForReuse() {
+        super.prepareForReuse()
+
+//        playerLayer?.player = nil
+        titleLabel.text = ""
+        authorLabel.text = ""
+    }
     
     func updateViews() {
         guard let post = post else { return }
-        
-        titleLabel.text = post.title
-        authorLabel.text = post.author.displayName
+//        titleLabel.text = post.title
+//        authorLabel.text = post.author.displayName
     }
     
     func playRecording() {
-        guard let player = player,
+           guard let player = player,
         let view = playerView else { return }
         player.seek(to: CMTime.zero)
-        let playerLayer = AVPlayerLayer(player: player)
-        
-        var topRect = view.bounds
-        topRect.size.height /= 1
-        topRect.size.width /= 1
-        topRect.origin.y = view.layoutMargins.top
-        
-        playerLayer.frame = topRect
-        view.layer.addSublayer(playerLayer)
-        
+//        playerLayer = AVPlayerLayer(player: player)
+//        playerLayer?.videoGravity = .resizeAspectFill
+//
+//        var topRect = view.bounds
+//        topRect.origin.y = view.frame.origin.y
+//        playerLayer?.frame = topRect
+//        view.layer.addSublayer(playerLayer!)
+        view.player = player
+        if player.timeControlStatus == .playing {
+            print("yyyyyyyyy")
+        }
         player.play()
     }
     
@@ -72,12 +72,8 @@ class VideoPostCollectionViewCell: UICollectionViewCell {
     
     func setupLabelBackgroundView() {
         labelBackgroundView.layer.cornerRadius = 8
-        //        labelBackgroundView.layer.borderColor = UIColor.white.cgColor
-        //        labelBackgroundView.layer.borderWidth = 0.5
+        labelBackgroundView.layer.borderColor = UIColor.white.cgColor
+        labelBackgroundView.layer.borderWidth = 0.5
         labelBackgroundView.clipsToBounds = true
     }
-    
-//    func setImage(_ image: UIImage?) {
-//        imageView.image = image
-//    }
 }
