@@ -6,6 +6,8 @@
 //  Copyright © 2018 Lambda School. All rights reserved.
 //
 
+// TODO: Left off after step 6, for the most part. Implemented UI slider for the image post but not the video post.  Need to implement steps seven and eight.
+
 import Foundation
 import FirebaseAuth
 import FirebaseDatabase
