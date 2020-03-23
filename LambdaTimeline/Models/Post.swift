@@ -15,7 +15,6 @@ enum MediaType: String {
     case image
     case audio
     case video
-    case location
 }
 
 class Post: NSObject {
@@ -49,8 +48,6 @@ class Post: NSObject {
             let mediaURL = URL(string: mediaURLString),
             let mediaTypeString = dictionary[Post.mediaTypeKey] as? String,
             let mediaType = MediaType(rawValue: mediaTypeString),
-            let latitude = dictionary[Post.latitudeKey] as? Double,
-            let longitude = dictionary[Post.longitudeKey] as? Double,
             let authorDictionary = dictionary[Post.authorKey] as? [String: Any],
             let author = Author(dictionary: authorDictionary),
             let timestampTimeInterval = dictionary[Post.timestampKey] as? TimeInterval else { return nil }
@@ -64,7 +61,11 @@ class Post: NSObject {
         self.timestamp = Date(timeIntervalSince1970: timestampTimeInterval)
 //        self.comments = captionDictionaries.compactMap({ Comment(dictionary: $0) })
         self.postID = id
-        self.geotag = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+
+        if let latitude = dictionary[Post.latitudeKey] as? Double,
+            let longitude = dictionary[Post.longitudeKey] as? Double {
+        self.geotag = CLLocationCoordinate2D(latitude: latitude, longitude: longitude) as CLLocationCoordinate2D
+        }
     }
     
     // Convert to a dictionary using the key constants defined below as the dictionary keys

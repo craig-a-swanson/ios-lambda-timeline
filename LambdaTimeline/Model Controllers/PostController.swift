@@ -10,6 +10,7 @@ import Foundation
 import FirebaseAuth
 import FirebaseDatabase
 import FirebaseStorage
+import MapKit
 
 class PostController {
     
@@ -20,7 +21,7 @@ class PostController {
     let commentsRef = Database.database().reference(withPath: "comments")
     let storageRef = Storage.storage().reference()
     
-    func createPost(with title: String, ofType mediaType: MediaType, mediaData: Data, ratio: CGFloat?, completion: @escaping (Bool) -> Void = { _ in }) {
+    func createPost(with title: String, ofType mediaType: MediaType, mediaData: Data, ratio: CGFloat?, geotag: Bool, completion: @escaping (Bool) -> Void = { _ in }) {
         
         guard let currentUser = Auth.auth().currentUser,
             let author = Author(user: currentUser) else { return }
@@ -28,8 +29,15 @@ class PostController {
         store(mediaData: mediaData, mediaType: mediaType) { (mediaURL) in
             
             guard let mediaURL = mediaURL else { completion(false); return }
+            let imagePost: Post
             
-            let imagePost = Post(title: title, mediaURL: mediaURL, mediaType: mediaType, ratio: ratio, author: author)
+            if geotag {
+                
+                imagePost = Post(title: title, mediaURL: mediaURL, mediaType: mediaType, author: author, geotag: nil)
+            } else {
+                let currentLocation = geotagHelper().currentUserLocation()
+                imagePost = Post(title: title, mediaURL: mediaURL, mediaType: mediaType, ratio: ratio, author: author, geotag: currentLocation)
+            }
             
             self.postsRef.childByAutoId().setValue(imagePost.dictionaryRepresentation) { (error, ref) in
                 if let error = error {

@@ -158,6 +158,7 @@
                                     <outlet property="playButton" destination="bz4-YF-eiY" id="zTs-dq-YwJ"/>
                                     <outlet property="playerView" destination="JBO-nJ-r9k" id="OCg-Fz-GkF"/>
                                     <outlet property="titleLabel" destination="gWf-8p-jWS" id="Sgu-CI-FJl"/>
+                                    <segue destination="T5A-hQ-Gjz" kind="show" identifier="ViewVideoPost" id="ETF-9p-2Tu"/>
                                 </connections>
                             </collectionViewCell>
                         </cells>
@@ -353,11 +354,32 @@
                                             <action selector="adjustmentSlider:" destination="1Aw-4e-BW2" eventType="valueChanged" id="ayw-AC-t5e"/>
                                         </connections>
                                     </slider>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="18" translatesAutoresizingMaskIntoConstraints="NO" id="aLK-BB-hWl">
+                                        <rect key="frame" x="79" y="535" width="256" height="31"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Include Location Tag?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bvh-5C-BzQ">
+                                                <rect key="frame" x="0.0" y="0.0" width="189" height="31"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1Oz-KT-vy1">
+                                                <rect key="frame" x="207" y="0.0" width="51" height="31"/>
+                                                <connections>
+                                                    <action selector="toggleGeotag:" destination="1Aw-4e-BW2" eventType="valueChanged" id="Py3-GD-WHa"/>
+                                                </connections>
+                                            </switch>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="256" id="aNo-Ub-3Z4"/>
+                                        </constraints>
+                                    </stackView>
                                 </subviews>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="PkI-rS-ua9" secondAttribute="trailing" id="1cC-FG-cAC"/>
                                     <constraint firstItem="PkI-rS-ua9" firstAttribute="top" secondItem="9qd-If-ddw" secondAttribute="top" id="3tV-sW-NF1"/>
                                     <constraint firstItem="i29-0X-l2O" firstAttribute="centerX" secondItem="9qd-If-ddw" secondAttribute="centerX" id="N4q-hf-rjO"/>
+                                    <constraint firstItem="aLK-BB-hWl" firstAttribute="top" secondItem="i29-0X-l2O" secondAttribute="bottom" constant="25" id="SaI-5z-yu5"/>
                                     <constraint firstItem="i29-0X-l2O" firstAttribute="top" secondItem="ye3-Ba-3w5" secondAttribute="bottom" constant="20" id="Xdq-1i-3LA"/>
                                     <constraint firstItem="PkI-rS-ua9" firstAttribute="leading" secondItem="9qd-If-ddw" secondAttribute="leading" id="bPK-xN-eaO"/>
                                     <constraint firstAttribute="bottom" secondItem="PkI-rS-ua9" secondAttribute="bottom" id="cfV-7c-ubK"/>
@@ -365,6 +387,7 @@
                                     <constraint firstItem="ye3-Ba-3w5" firstAttribute="top" secondItem="PkI-rS-ua9" secondAttribute="bottom" constant="8" id="eLr-B4-wop"/>
                                     <constraint firstItem="ye3-Ba-3w5" firstAttribute="centerX" secondItem="9qd-If-ddw" secondAttribute="centerX" id="eSY-zE-gYf"/>
                                     <constraint firstAttribute="height" priority="250" constant="603" id="qMm-7B-8rp"/>
+                                    <constraint firstItem="aLK-BB-hWl" firstAttribute="centerX" secondItem="9qd-If-ddw" secondAttribute="centerX" id="wa2-57-Ve2"/>
                                 </constraints>
                             </scrollView>
                         </subviews>
@@ -391,6 +414,7 @@
                         <outlet property="contrastButton" destination="VFx-jD-Mqb" id="8jR-jD-JZX"/>
                         <outlet property="exposureButton" destination="he7-fk-k7g" id="5oS-gx-gRe"/>
                         <outlet property="filterSlider" destination="i29-0X-l2O" id="KYN-eL-Xvc"/>
+                        <outlet property="geotagSwitch" destination="1Oz-KT-vy1" id="1Ms-0w-C3P"/>
                         <outlet property="hueButton" destination="i5P-h9-9jg" id="gFA-mc-8O5"/>
                         <outlet property="imageHeightConstraint" destination="MHD-wr-Gq9" id="HyG-8g-Ck1"/>
                         <outlet property="imageView" destination="4eK-5F-H5h" id="e7m-c5-Xhz"/>

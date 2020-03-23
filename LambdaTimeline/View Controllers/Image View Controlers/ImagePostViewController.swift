@@ -40,6 +40,8 @@ class ImagePostViewController: ShiftableViewController {
         var postController: PostController!
         var post: Post?
         var imageData: Data?
+    
+    var geotagState: Bool = true
         
         private var selectedImage: UIImage? {
             didSet {
@@ -85,7 +87,8 @@ class ImagePostViewController: ShiftableViewController {
         @IBOutlet weak var chooseImageButton: UIButton!
         @IBOutlet weak var imageHeightConstraint: NSLayoutConstraint!
         @IBOutlet weak var postButton: UIBarButtonItem!
-        
+        @IBOutlet weak var geotagSwitch: UISwitch!
+    
         @IBOutlet weak var filterSlider: UISlider!
         @IBOutlet weak var maskButton: UIButton!
         @IBOutlet weak var contrastButton: UIButton!
@@ -100,7 +103,7 @@ class ImagePostViewController: ShiftableViewController {
             super.viewDidLoad()
             
             setImageViewHeight(with: 1.0)
-            
+            titleTextField.delegate = self
             updateViews()
         }
         
@@ -108,7 +111,11 @@ class ImagePostViewController: ShiftableViewController {
         @IBAction func adjustmentSlider(_ sender: UISlider) {
             updateImage()
         }
-        
+    
+        @IBAction func toggleGeotag(_ sender: UISwitch) {
+            geotagState.toggle()
+        }
+    
         // The buttons all set the enum to the appropriate filter setting and call update views
         //
         @IBAction func maskFilter(_ sender: UIButton) {
@@ -214,7 +221,7 @@ class ImagePostViewController: ShiftableViewController {
                 return
             }
             
-            postController.createPost(with: title, ofType: .image, mediaData: imageData, ratio: imageView.image?.ratio) { (success) in
+            postController.createPost(with: title, ofType: .image, mediaData: imageData, ratio: imageView.image?.ratio, geotag: geotagState) { (success) in
                 guard success else {
                     DispatchQueue.main.async {
                         self.presentInformationalAlertController(title: "Error", message: "Unable to create post. Try again.")
