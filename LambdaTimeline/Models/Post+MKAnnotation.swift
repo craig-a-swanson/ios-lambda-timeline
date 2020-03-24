@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import  MapKit
+import MapKit
 
 extension Post: MKAnnotation {
     

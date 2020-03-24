@@ -23,62 +23,62 @@ enum CurrentActiveFilter {
 
 class ImagePostViewController: ShiftableViewController {
     
-        // MARK: - Properties
-        private let context = CIContext()
-        private let maskedBlurFilter = CIFilter.maskedVariableBlur()
-        private let colorControlFilter = CIFilter.colorControls()
-        private let hueAdjustFilter = CIFilter.hueAdjust()
-        private let exposureAdjustFilter = CIFilter.exposureAdjust()
-        private let scaleTransformFilter = CIFilter.lanczosScaleTransform()
-        
-        private var _filter = CurrentActiveFilter.exposure
-        private var maskSliderValue: NSNumber = 0.00
-        private var contrastSliderValue: NSNumber = 1.00
-        private var hueSliderValue: NSNumber = 0.00
-        private var exposureSliderValue: NSNumber = 0.50
-        private var scaleTransformSliderValue: NSNumber = 1.00
-        var postController: PostController!
-        var post: Post?
-        var imageData: Data?
+    // MARK: - Properties
+    private let context = CIContext()
+    private let maskedBlurFilter = CIFilter.maskedVariableBlur()
+    private let colorControlFilter = CIFilter.colorControls()
+    private let hueAdjustFilter = CIFilter.hueAdjust()
+    private let exposureAdjustFilter = CIFilter.exposureAdjust()
+    private let scaleTransformFilter = CIFilter.lanczosScaleTransform()
+    
+    private var _filter = CurrentActiveFilter.exposure
+    private var maskSliderValue: NSNumber = 0.00
+    private var contrastSliderValue: NSNumber = 1.00
+    private var hueSliderValue: NSNumber = 0.00
+    private var exposureSliderValue: NSNumber = 0.50
+    private var scaleTransformSliderValue: NSNumber = 1.00
+    var postController: PostController!
+    var post: Post?
+    var imageData: Data?
     
     var geotagState: Bool = true
-        
-        private var selectedImage: UIImage? {
-            didSet {
-                guard let selectedImage = selectedImage else { return }
-                
-                var scaledSize = imageView.bounds.size
-                let scale = UIScreen.main.scale
-                
-                scaledSize = CGSize(width: scaledSize.width * scale, height: scaledSize.height * scale)
-                
-                let scaledUIImage = selectedImage.imageByScaling(toSize: scaledSize)
-                guard let scaledCGImage = scaledUIImage?.cgImage else { return }
-                
-                scaledImage = CIImage(cgImage: scaledCGImage)
-            }
-        }
-        
-        private var scaledImage: CIImage? {
-            didSet {
-                updateImage()
-            }
-        }
-        
-        private var maskImage: CIImage? {
-            let mask = #imageLiteral(resourceName: "swirl")
-            guard let scaledImage = scaledImage else { return nil }
-            guard (selectedImage != nil) else { return nil }
-            var scaledSize = scaledImage.extent
+    
+    private var selectedImage: UIImage? {
+        didSet {
+            guard let selectedImage = selectedImage else { return }
+            
+            var scaledSize = imageView.bounds.size
             let scale = UIScreen.main.scale
             
-            scaledSize = CGRect(x: 0, y: 0, width: scaledSize.width * scale, height: scaledSize.height * scale)
-    //            CGSize(width: scaledSize.width * scale, height: scaledSize.height * scale)
+            scaledSize = CGSize(width: scaledSize.width * scale, height: scaledSize.height * scale)
             
-            let scaledMaskImage = mask.imageByScaling(toSize: CGSize(width: scaledSize.width, height: scaledSize.height))
-            guard let maskCGImage = scaledMaskImage?.cgImage else { return nil }
-            return CIImage(cgImage: maskCGImage)
+            let scaledUIImage = selectedImage.imageByScaling(toSize: scaledSize)
+            guard let scaledCGImage = scaledUIImage?.cgImage else { return }
+            
+            scaledImage = CIImage(cgImage: scaledCGImage)
         }
+    }
+    
+    private var scaledImage: CIImage? {
+        didSet {
+            updateImage()
+        }
+    }
+    
+    private var maskImage: CIImage? {
+        let mask = #imageLiteral(resourceName: "swirl")
+        guard let scaledImage = scaledImage else { return nil }
+        guard (selectedImage != nil) else { return nil }
+        var scaledSize = scaledImage.extent
+        let scale = UIScreen.main.scale
+        
+        scaledSize = CGRect(x: 0, y: 0, width: scaledSize.width * scale, height: scaledSize.height * scale)
+        //            CGSize(width: scaledSize.width * scale, height: scaledSize.height * scale)
+        
+        let scaledMaskImage = mask.imageByScaling(toSize: CGSize(width: scaledSize.width, height: scaledSize.height))
+        guard let maskCGImage = scaledMaskImage?.cgImage else { return nil }
+        return CIImage(cgImage: maskCGImage)
+    }
         
         
         // MARK: - Outlets
