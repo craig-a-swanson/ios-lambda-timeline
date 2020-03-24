@@ -427,7 +427,7 @@
             </objects>
             <point key="canvasLocation" x="2855.072463768116" y="-242.41071428571428"/>
         </scene>
-        <!--Item-->
+        <!--Map View-->
         <scene sceneID="Fp4-ZX-CCZ">
             <objects>
                 <viewController id="g3H-sc-Yyq" customClass="MapViewController" customModule="LambdaTimeline" customModuleProvider="target" sceneMemberID="viewController">
@@ -451,7 +451,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="5yw-mO-MPY"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item" id="fg4-zg-AWS"/>
+                    <tabBarItem key="tabBarItem" title="Map View" image="map" catalog="system" id="fg4-zg-AWS"/>
                     <connections>
                         <outlet property="mapView" destination="oyT-Ev-PXm" id="NNc-dP-h6w"/>
                     </connections>
@@ -460,11 +460,11 @@
             </objects>
             <point key="canvasLocation" x="595" y="108"/>
         </scene>
-        <!--Item-->
+        <!--Posts-->
         <scene sceneID="gdW-Je-ais">
             <objects>
                 <navigationController storyboardIdentifier="PostsNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="ohA-ly-1Yj" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="z6g-jS-Ss0"/>
+                    <tabBarItem key="tabBarItem" title="Posts" image="person.circle" catalog="system" id="z6g-jS-Ss0"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="XJY-X6-mEY">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
@@ -862,18 +862,18 @@
             </objects>
             <point key="canvasLocation" x="3550.7246376811595" y="487.5"/>
         </scene>
-        <!--Tab Bar Controller-->
+        <!--Tabbed View Controller-->
         <scene sceneID="J8Y-K1-S9h">
             <objects>
-                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="C6T-Z3-dGf" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="TabBarController" automaticallyAdjustsScrollViewInsets="NO" id="C6T-Z3-dGf" customClass="TabbedViewController" customModule="LambdaTimeline" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="toL-ry-anK">
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>
                     <connections>
-                        <segue destination="ohA-ly-1Yj" kind="relationship" relationship="viewControllers" id="T2l-AX-KuO"/>
-                        <segue destination="g3H-sc-Yyq" kind="relationship" relationship="viewControllers" id="wdP-km-CsQ"/>
+                        <segue destination="ohA-ly-1Yj" kind="relationship" relationship="viewControllers" destinationCreationSelector="PostSegue" id="T2l-AX-KuO"/>
+                        <segue destination="g3H-sc-Yyq" kind="relationship" relationship="viewControllers" destinationCreationSelector="MapSegue" id="wdP-km-CsQ"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eio-Mp-7pB" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -885,6 +885,8 @@
         <image name="contrast" width="512" height="512"/>
         <image name="exposure" width="186" height="186"/>
         <image name="hue" width="512" height="512"/>
+        <image name="map" catalog="system" width="64" height="56"/>
+        <image name="person.circle" catalog="system" width="64" height="60"/>
         <image name="playnormal" width="256" height="256"/>
         <image name="record" width="256" height="256"/>
         <image name="scaleDown" width="512" height="512"/>

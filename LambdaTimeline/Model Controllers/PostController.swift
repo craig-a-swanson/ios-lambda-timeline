@@ -34,7 +34,9 @@ class PostController {
             let imagePost: Post
             
             if geotag {
+                
                 let currentLocation = geotagHelper().currentUserLocation()
+               
                 imagePost = Post(title: title, mediaURL: mediaURL, mediaType: mediaType, ratio: ratio, author: author, geotag: currentLocation)
             } else {
                 imagePost = Post(title: title, mediaURL: mediaURL, mediaType: mediaType, author: author, geotag: nil)

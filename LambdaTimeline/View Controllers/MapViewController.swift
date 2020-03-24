@@ -11,6 +11,7 @@ import MapKit
 
 class MapViewController: UIViewController {
 
+    var postController: PostController?
     
     @IBOutlet var mapView: MKMapView!
     

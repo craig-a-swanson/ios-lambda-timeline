@@ -37,7 +37,7 @@ class ImagePostViewController: ShiftableViewController {
     private var hueSliderValue: NSNumber = 0.00
     private var exposureSliderValue: NSNumber = 0.50
     private var scaleTransformSliderValue: NSNumber = 1.00
-    var postController: PostController!
+    var postController: PostController?
     var post: Post?
     var imageData: Data?
     
@@ -216,7 +216,8 @@ class ImagePostViewController: ShiftableViewController {
             view.endEditing(true)
             
             guard let imageData = imageView.image?.jpegData(compressionQuality: 0.1),
-                let title = titleTextField.text, title != "" else {
+                let title = titleTextField.text, title != "",
+            let postController = postController else {
                 presentInformationalAlertController(title: "Uh-oh", message: "Make sure that you add a photo and a caption before posting.")
                 return
             }

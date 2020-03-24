@@ -36,7 +36,6 @@ class Post: NSObject {
         self.mediaType = mediaType
         self.author = author
         self.comments = comments
-//        self.comments = [Comment(text: title, author: author)]
         self.timestamp = timestamp
         self.geotag = geotag
     }
@@ -51,7 +50,6 @@ class Post: NSObject {
             let authorDictionary = dictionary[Post.authorKey] as? [String: Any],
             let author = Author(dictionary: authorDictionary),
             let timestampTimeInterval = dictionary[Post.timestampKey] as? TimeInterval else { return nil }
-//            let captionDictionaries = dictionary[Post.commentsKey] as? [[String: Any]] else { return nil }
         
         self.PostTitle = title
         self.mediaURL = mediaURL
@@ -59,7 +57,6 @@ class Post: NSObject {
         self.ratio = dictionary[Post.ratioKey] as? CGFloat
         self.author = author
         self.timestamp = Date(timeIntervalSince1970: timestampTimeInterval)
-//        self.comments = captionDictionaries.compactMap({ Comment(dictionary: $0) })
         self.postID = id
 
         if let latitude = dictionary[Post.latitudeKey] as? Double,
@@ -73,12 +70,13 @@ class Post: NSObject {
         var dict: [String: Any] = [Post.titleKey: PostTitle,
             Post.mediaKey: mediaURL.absoluteString,
                 Post.mediaTypeKey: mediaType.rawValue,
-//                Post.commentsKey: comments.map({ $0.dictionaryRepresentation }),
                 Post.authorKey: author.dictionaryRepresentation,
-                Post.timestampKey: timestamp.timeIntervalSince1970,
-                Post.latitudeKey: String("\(geotag?.latitude)"),
-                Post.longitudeKey: String("\(geotag?.longitude)")]
+                Post.timestampKey: timestamp.timeIntervalSince1970]
         
+        if geotag != nil {
+            dict[Post.latitudeKey] = String("\(geotag!.latitude)")
+            dict[Post.longitudeKey] = String("\(geotag!.longitude)")
+        }
         guard let ratio = self.ratio else { return dict }
         
         dict[Post.ratioKey] = ratio
