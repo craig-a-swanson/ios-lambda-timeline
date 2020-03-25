@@ -64,9 +64,6 @@ class PostController {
         let commentReference = commentPostReference.child(comment.commentID)
         commentReference.setValue(comment.dictionaryRepresentation)
         completion()
-//        post.comments.append(comment)
-        
-//        savePostToFirebase(post)
     }
     
     func addAudioComment(with dataURL: String, of mediaType: MediaType, to post: Post, completion: @escaping (Bool) -> Void = { _ in }) {
@@ -89,13 +86,6 @@ class PostController {
             let commentPostReference = self.commentsRef.child(postID)
             let commentReference = commentPostReference.child(comment.commentID)
             commentReference.setValue(comment.dictionaryRepresentation)
-//            self.fetchComments(with: post) {
-//                completion(true)
-//            }
-            
-//            let comment = Comment(text: nil, author: author, audioURL: mediaURL)
-//            post.comments.append(comment)
-//            self.savePostToFirebase(post)
             completion(true)
         }
     }
@@ -183,7 +173,6 @@ class PostController {
         let ref = postsRef.child(postID)
         
         ref.setValue(post.dictionaryRepresentation)
-        print(post.dictionaryRepresentation)
     }
 
     private func store(mediaData: Data, mediaType: MediaType, completion: @escaping (URL?) -> Void) {

@@ -59,9 +59,9 @@ class Post: NSObject {
         self.timestamp = Date(timeIntervalSince1970: timestampTimeInterval)
         self.postID = id
 
-        if let latitude = dictionary[Post.latitudeKey] as? Double,
-            let longitude = dictionary[Post.longitudeKey] as? Double {
-        self.geotag = CLLocationCoordinate2D(latitude: latitude, longitude: longitude) as CLLocationCoordinate2D
+        if let latitude = dictionary[Post.latitudeKey] as? String,
+            let longitude = dictionary[Post.longitudeKey] as? String {
+            self.geotag = CLLocationCoordinate2D(latitude: Double(latitude) as! CLLocationDegrees, longitude: Double(longitude) as! CLLocationDegrees) as CLLocationCoordinate2D
         }
     }
     

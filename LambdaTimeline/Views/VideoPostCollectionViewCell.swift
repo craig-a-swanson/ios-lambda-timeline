@@ -30,10 +30,11 @@ class VideoPostCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var playButton: UIButton!
     @IBOutlet weak var playerView: PlayerViewClass!
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
+//    override func layoutSubviews() {
+//        super.layoutSubviews()
 //        setupLabelBackgroundView()
-    }
+//    }
+    
     override func prepareForReuse() {
         super.prepareForReuse()
 
@@ -61,9 +62,6 @@ class VideoPostCollectionViewCell: UICollectionViewCell {
         view.layer.addSublayer(playerLayer!)
 //        view.player = player
         player.play()
-        if player.timeControlStatus == .playing {
-            print("yyyyyyyyy")
-        }
     }
     
     @IBAction func playPauseVideo(_ sender: UIButton) {

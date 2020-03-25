@@ -98,7 +98,6 @@ class PostsCollectionViewController: UICollectionViewController, UICollectionVie
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ImagePostCell", for: indexPath) as? ImagePostCollectionViewCell else { return UICollectionViewCell() }
             
             cell.post = post
-            
             loadImage(for: cell, forItemAt: indexPath)
             
             return cell
