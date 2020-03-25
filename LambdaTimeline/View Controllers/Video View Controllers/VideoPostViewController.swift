@@ -128,7 +128,7 @@ class VideoPostViewController: UIViewController {
     
     // MARK: - Set up Camera
     private func setupCamera() {
-        let camera = bestcamera()
+        guard let camera = bestcamera() else { return }
         let microphone = bestMicrophone()
         
         // there is a "begin" to start and a "commit" to end.
@@ -166,7 +166,7 @@ class VideoPostViewController: UIViewController {
     }
     
     // MARK: - Best Camera and Microphone
-    private func bestcamera() -> AVCaptureDevice {
+    private func bestcamera() -> AVCaptureDevice? {
         // try the better camera first if the user has it
         if let device = AVCaptureDevice.default(.builtInUltraWideCamera, for: .video, position: .back) {
             return device
@@ -174,8 +174,14 @@ class VideoPostViewController: UIViewController {
         // if the user doesn't have the better one, use the standard camera
         if let device = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .back) {
             return device
+        }else {
+            let alert = UIAlertController(title: "No Camera", message: "There is not a suitable camera available to use.", preferredStyle: .alert)
+            let action = UIAlertAction(title: "OK", style: .destructive)
+            alert.addAction(action)
+            present(alert, animated: true)
+            recordButton.isEnabled = false
+            return nil
         }
-        preconditionFailure("No cameras on device match the specs that we need.")
     }
     
     private func bestMicrophone() -> AVCaptureDevice {
