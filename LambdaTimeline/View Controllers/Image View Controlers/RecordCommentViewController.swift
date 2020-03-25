@@ -78,9 +78,6 @@ class RecordCommentViewController: UIViewController {
                 
                 let name = ISO8601DateFormatter.string(from: Date(), timeZone: .current, formatOptions: .withInternetDateTime)
                 let file = documents.appendingPathComponent(name, isDirectory: false).appendingPathExtension("caf")
-                
-                print("recording URL: \(file)")
-                
                 return file
     }
     
